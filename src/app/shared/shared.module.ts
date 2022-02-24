@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavComponent } from './nav/nav.component';
+import { ShellComponent } from './shell/shell.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,7 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
-    NavComponent
+    ShellComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +37,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     RouterModule
   ],
   exports: [
-    NavComponent,
+    ShellComponent,
     CommonModule,
     MatButtonModule,
     MatToolbarModule,
