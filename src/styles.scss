@@ -90,7 +90,7 @@ $kanbanit-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$kanbanit-theme: mat.define-light-theme(
+$kanbanit-theme: mat.define-dark-theme(
   (
     color: (
       primary: $kanbanit-primary,
@@ -122,4 +122,13 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+.logo {
+  font-family: "Delius", cursive;
+  letter-spacing: 1px;
+}
+
+.logo-icon {
+  color: mat.get-color-from-palette($kanbanit-primary, 900);
 }
