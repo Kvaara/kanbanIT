@@ -1,0 +1,66 @@
+<mat-sidenav-container>
+
+    <!-- Responsive Drawer For Smaller Screens -->
+    <mat-sidenav #drawer fixedInViewport opened="false" mode="over">
+        <mat-toolbar>Menu</mat-toolbar>
+            <mat-nav-list>
+                <a mat-list-item routerLink="/" (click)="closeDrawer()">Home</a>
+                <a mat-list-item routerLink="/signin" (click)="closeDrawer()">Sign in</a>
+                <a mat-list-item routerLink="/kanban" (click)="closeDrawer()">Kanban Demo</a >
+                <a mat-list-item routerLink="/customers" (click)="closeDrawer()">SSR demo</a>
+            </mat-nav-list>
+    </mat-sidenav>
+
+    <!-- Content outside of the drawer (top navigation and body) -->
+    <mat-sidenav-content>
+
+    <!-- Top Navigation Bar Content -->
+        <mat-toolbar>
+            <button
+                *ngIf="isHandset$ | async"
+                mat-icon-button
+                type="button"
+                (click)="toggleDrawer()"
+                aria-label="Side nav toggle icon">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+            <a routerLink="/"
+                class="text-3xl flex justify-center items-center font-bold gap-3 ml-5 logo">
+                <mat-icon class="scale-[2.2] logo-icon"> view_kanban </mat-icon>
+                KanbanIT
+            </a>    
+
+            <div *ngIf="!(isHandset$ | async)" class="flex ml-auto gap-5">
+                <a mat-button routerLink="/kanban" class="text-lg">Kanban demo</a>
+                <a mat-button routerLink="/customers" class="text-lg">SSR demo</a>
+                <a mat-raised-button color="accent" routerLink="/signin"
+                 class="text-xl font-bold tracking-wider hover:brightness-110">Sign In</a>
+
+                <!-- Kebab Menu Top-Right -->
+                <div>
+                    <button mat-icon-button [mat-menu-trigger-for]="kebabMenu"
+                     aria-label="Kebab menu with vertical dots">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+    
+                    <mat-menu #kebabMenu="matMenu">
+                        <button mat-menu-item class="font-bold text-base">
+                            <mat-icon class="scale-125 mb-0.5">code</mat-icon>
+                            Source code
+                        </button>
+                        <button mat-menu-item class="font-bold text-base">
+                            <mat-icon class="scale-110 mb-0.5">construction</mat-icon>
+                            Tools used
+                        </button>
+                    </mat-menu>
+                </div>
+                
+            </div>
+        </mat-toolbar>
+
+    <!-- Transclusion. All the children will be mirrored here from this component. -->
+    <ng-content></ng-content>
+    
+  </mat-sidenav-content>
+</mat-sidenav-container>
