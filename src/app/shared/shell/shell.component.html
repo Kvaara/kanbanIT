@@ -1,0 +1,73 @@
+<mat-sidenav-container class="h-screen">
+
+    <!-- Responsive Left-Side Drawer For Smaller Screens -->
+    <mat-sidenav #leftNavDrawer fixedInViewport opened="false" mode="over"
+     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'">
+        <mat-toolbar>Menu</mat-toolbar>
+            <mat-nav-list>
+                <a role="button" mat-list-item routerLink="/" (click)="closeLeftNavDrawer()">Home</a>
+                <a role="button" mat-list-item (click)="closeLeftNavDrawer(); openAuthDrawer()">Sign in</a>
+                <a role="button" mat-list-item routerLink="/kanban" (click)="closeLeftNavDrawer()">Kanban Demo</a >
+                <a role="button" mat-list-item routerLink="/customers" (click)="closeLeftNavDrawer()">SSR demo</a>
+            </mat-nav-list>
+    </mat-sidenav>
+
+    <!-- Login/Registration Right-Side Drawer -->
+    <mat-sidenav #authDrawer position="end" opened="false" mode="over" fixedInViewport
+     role="login/register dialog" tabindex="0" class="bg-slate-900">
+        <ng-container #authForms></ng-container>
+    </mat-sidenav> 
+
+    <!-- Content outside of the drawer (top navigation and body) -->
+    <mat-sidenav-content>
+
+        <!-- Top Navigation Bar Content -->
+        <mat-toolbar>
+            <button
+                *ngIf="isHandset$ | async"
+                mat-icon-button
+                type="button"
+                (click)="toggleLeftNavDrawer()"
+                aria-label="Side nav toggle icon">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+            <a routerLink="/" [ngClass]="{'ml-5': (isHandset$ | async)}" role="button"
+                class="text-3xl flex justify-center items-center font-bold gap-3 ml-5 logo">
+                <mat-icon class="scale-[2.2] logo-icon"> view_kanban </mat-icon>
+                KanbanIT
+            </a>    
+
+            <div *ngIf="!(isHandset$ | async)" class="flex ml-auto gap-2 items-center">
+                <a role="button" mat-button routerLink="/kanban" class="text-lg">Kanban demo</a>
+                <a role="button" mat-button routerLink="/customers" class="text-lg">SSR demo</a>
+                <button mat-raised-button color="accent" (click)="openAuthDrawer()"
+                 class="text-xl font-bold tracking-wider hover:brightness-110 py-1">Sign In</button>
+
+                <!-- Kebab Menu Top-Right -->
+                <div>
+                    <button mat-icon-button [mat-menu-trigger-for]="kebabMenu"
+                     aria-label="Kebab menu with vertical dots">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+    
+                    <mat-menu #kebabMenu="matMenu">
+                        <button mat-menu-item class="font-bold text-base">
+                            <mat-icon class="scale-125 mb-0.5">code</mat-icon>
+                            Source code
+                        </button>
+                        <button mat-menu-item class="font-bold text-base">
+                            <mat-icon class="scale-110 mb-0.5">construction</mat-icon>
+                            Tools used
+                        </button>
+                    </mat-menu>
+                </div>
+                
+            </div>
+        </mat-toolbar>
+
+        <!-- Transclusion. All the children will be mirrored here from this component. -->
+        <ng-content></ng-content>
+    
+    </mat-sidenav-content>
+</mat-sidenav-container>
