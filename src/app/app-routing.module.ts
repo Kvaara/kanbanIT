@@ -7,9 +7,9 @@ const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'login', component: HomeComponent, data: {openAuthDrawer: true}},
   { path: 'kanban', 
-  component: HomeComponent, 
-  loadChildren: () => import("./kanban/kanban.module").then((m) => m.KanbanModule),
-  canActivate: [AuthGuard],
+    component: HomeComponent, 
+    loadChildren: () => import("./kanban/kanban.module").then((m) => m.KanbanModule),
+    canActivate: [AuthGuard],
   },
 ];
 

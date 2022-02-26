@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+import { SnackService } from '../services/snack.service';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +9,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  constructor(private router: Router) {}
 
-  ngOnInit(): void {
-    console.log(this.router.config);
+  constructor(private route: ActivatedRoute, private snackService: SnackService) {}
+
+  async ngOnInit(): Promise<void> {
+    await this.checkIfOpeningAuthDrawer();
+    
+  }
+
+  async checkIfOpeningAuthDrawer() {
+    const { openAuthDrawer } = await firstValueFrom(this.route.data)
+    if (openAuthDrawer) this.snackService.openAuthDrawer();
   }
 
 }

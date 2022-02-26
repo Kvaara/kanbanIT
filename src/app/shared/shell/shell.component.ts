@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
+import { SnackService } from 'src/app/services/snack.service';
 import { LoginFormComponent } from '../../user/login-form/login-form.component';
 
 @Component({
@@ -27,11 +28,17 @@ export class ShellComponent implements AfterViewInit {
 
   constructor(
     private breakPointObserver: BreakpointObserver,
+    private snackService: SnackService,
   ) {}
 
 
   ngAfterViewInit(): void {
+    this.registerAuthDrawer();
     this.subscribeToAuthDrawerOpenedStart();
+  }
+
+  registerAuthDrawer() {
+    this.snackService.registerAuthDrawer(this.authDrawer);
   }
 
   subscribeToAuthDrawerOpenedStart() {
