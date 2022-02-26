@@ -1,87 +1,151 @@
-<div>
-    
-    <!-- Google Sign In Button -->
-    <div class="flex justify-center mb-5 mt-6 mx-4">
-        <button type="button" appGoogleSignin mat-raised-button
-         class="bg-slate-100 hover:brightness-110 hover:scale-105 transition-all">
-         <div class="flex py-3 px-1 gap-2.5 justify-center items-center">
-             <img class="w-8" src="/assets/img/google-logo.svg" alt="Google Logo">
-             <span class="font-bold text-lg text-slate-900 tracking-wide">Continue with Google</span>
-         </div>
-        </button>
-    </div>
 
-    <div class="text-center flex justify-center items-center mx-3">
-        <div class="rounded h-[1px] flex-1 bg-gray-600"></div>
-        <span class="items-center text-lg tracking-wider text-gray-300 mx-2">OR</span>
-        <div class="rounded h-[1px] flex-1 bg-gray-600"></div>
-    </div>
-    
-    
-    <form *ngIf="isSignInPage" [formGroup]="form" (ngSubmit)="submitForm()" [@fadeIn]>
-            <h1 class="ml-4 text-3xl tracking-wider">Sign In</h1>
-            <div class="flex flex-col mx-4">
-                <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
-                    <mat-label>Email:</mat-label>
-                    <input matInput formControlName="email" type="email">
-                    <mat-error *ngIf="getEmail.invalid && getEmail.dirty">
-                        You must enter a valid email address
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="flex flex-col mx-4 mt-0.5">
-                <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
-                    <mat-label>Password:</mat-label>
-                    <input matInput formControlName="password" type="password">
-                </mat-form-field>
-            </div>
-            <div class="flex justify-between items-center mr-4 ml-2">
-                <button mat-button class="px-1.5" (click)="changePageType('createAcc')">
-                    <span class="underline tracking-wider font-bold text-base text-gray-200">
-                        Create Account
-                    </span>
-                </button>
-                <button color="accent" mat-raised-button type="submit"
-                 class="font-bold tracking-wider text-xl hover:brightness-110 transition-all py-3 px-5">Sign In</button>
-            </div>
-    </form>
-        
-    
-    <form *ngIf="isCreateAccPage" [formGroup]="form" (ngSubmit)="submitForm()" [@fadeIn]>
-        <h1 class="ml-4 text-3xl tracking-wider">Create Account</h1>
-            <div class="flex flex-col mx-4">
-                <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
-                    <mat-label>Email:</mat-label>
-                    <input matInput formControlName="email" type="email">
-                    <mat-error *ngIf="getEmail.invalid && getEmail.dirty">
-                        You must enter a valid email address
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="flex flex-col mx-4 mt-0.5">
-                <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
-                    <mat-label>Password:</mat-label>
-                    <input matInput formControlName="password" type="password">
-                </mat-form-field>
-            </div>
-            <div class="flex flex-col mx-4 mt-0.5">
-                <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
-                    <mat-label>Confirm password:</mat-label>
-                    <input matInput formControlName="confPassword" type="password">
-                </mat-form-field>
-            </div>
-            <div class="flex justify-between items-center mr-4 ml-2">
-                <button mat-button class="px-1.5" (click)="changePageType('signIn')">
-                    <span class="underline tracking-wider font-bold text-base text-gray-200">
-                        Sign In
-                    </span>
-                </button>
-                <button color="accent" mat-raised-button type="submit"
-                 class="font-bold tracking-wider text-xl hover:brightness-110 transition-all py-3 px-2">Create Account</button>
-            </div>
-    </form>
-
+<div *ngIf="!hasAuthModuleLoaded; else authFormContent"
+ class="flex flex-col h-full justify-center items-center gap-3">
+    <mat-spinner strokeWidth="6"></mat-spinner>
+    <span class="text-xl tracking-wide">Loading...</span>
 </div>
+
+
+<ng-template #authFormContent>
+    <div class="flex flex-col h-full" [@fadeIn]>
+
+        <!-- Google Sign In Button -->
+        <div class="flex justify-center mb-6 mt-6 mx-4">
+            <button type="button" appGoogleSignin mat-raised-button
+             class="bg-slate-100 hover:brightness-110 hover:scale-105 transition-all rounded-full">
+             <div class="flex py-3 px-1 gap-2.5 justify-center items-center">
+                 <img class="w-8" src="/assets/img/google-logo.svg" alt="Google Logo">
+                 <span class="font-bold text-lg text-slate-900 tracking-wide">Continue with Google</span>
+             </div>
+            </button>
+        </div>
+    
+        <div class="text-center flex justify-center items-center mx-3 mb-5">
+            <div class="rounded h-[1px] flex-1 bg-gray-600"></div>
+            <span class="items-center text-base tracking-wider text-gray-400 mx-2">OR</span>
+            <div class="rounded h-[1px] flex-1 bg-gray-600"></div>
+        </div>
+        
+        
+        <form *ngIf="isSignInPage" [formGroup]="signInForm" (ngSubmit)="submitForm()" [@fadeIn] class="flex flex-col flex-1">
+    
+                <h1 class="text-3xl tracking-wide text-center">Sign In</h1>
+    
+                <div *ngIf="errorText" [@popUp] 
+                 class="border-2 leading-8 text-center mx-3 border-red-400 py-1.5 mb-5 font-bold">
+                    <span class="text-red-400 text-xl">{{ errorText }}</span>
+                </div>
+    
+                <div class="flex flex-col mx-4">
+                    <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
+                        <mat-label>Email:</mat-label>
+                        <input matInput formControlName="email" type="email">
+                        <mat-error *ngIf="getSignInEmail.invalid && getSignInEmail.dirty">
+                            A valid email address is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col mx-4 mt-0.5">
+                    <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
+                        <mat-label>Password:</mat-label>
+                        <input matInput formControlName="password" type="password">
+                    </mat-form-field>
+                </div>
+                <div class="flex justify-between items-center mr-4 ml-2">
+                    <button mat-button class="px-1.5" (click)="changePageType('forgotPass')">
+                        <span class="underline tracking-wider font-bold text-base text-gray-200">
+                            Forgot password?
+                        </span>
+                    </button>
+                    <button color="accent" mat-raised-button type="submit" [disabled]="signInForm.invalid"
+                     class="font-bold tracking-wider text-xl hover:brightness-110 transition-all py-3 px-5">Sign In</button>
+                </div>
+    
+                <div class="flex justify-center mt-auto flex-col mb-7">
+                    <h1 class="text-3xl tracking-wide text-center">Need an account?</h1>
+                    <button mat-stroked-button color="primary" class="py-3.5 mx-6 tracking-wider font-bold text-lg" (click)="changePageType('createAcc')">
+                        Create an account here
+                    </button>
+                </div>
+        </form>
+            
+        
+        <form *ngIf="isCreateAccPage" [formGroup]="createAccForm" (ngSubmit)="submitForm()" [@fadeIn] class="flex flex-col flex-1">
+    
+            <h1 class="text-3xl tracking-wider text-center">Create Account</h1>
+    
+            <div *ngIf="errorText" [@popUp] 
+             class="border-2 leading-8 text-center mx-3 border-red-400 py-1.5 mb-5 font-bold">
+                <span class="text-red-400 text-xl">{{ errorText }}</span>
+            </div>
+    
+                <div class="flex flex-col mx-4">
+                    <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
+                        <mat-label>Email:</mat-label>
+                        <input matInput formControlName="email" type="email">
+                        <mat-error *ngIf="getCreateAccEmail.invalid && getCreateAccEmail.dirty">
+                            A valid email address is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col mx-4 mt-0.5">
+                    <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
+                        <mat-label>Password:</mat-label>
+                        <input matInput formControlName="password" type="password">
+                        <mat-error *ngIf="getCreateAccPassword.invalid && getCreateAccPassword.dirty">
+                            Password should be at least 6 characters
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col mx-4 mt-0.5">
+                    <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
+                        <mat-label>Confirm password:</mat-label>
+                        <input matInput formControlName="confPassword" type="password">
+                    </mat-form-field>
+                </div>
+                <div class="flex justify-center items-center mx-6">
+                    <button color="accent" mat-raised-button type="submit" [disabled]="createAccForm.invalid"
+                     class="font-bold tracking-wider text-xl hover:brightness-110 transition-all py-3 flex-1">Create Account</button>
+                </div>
+                <div class="flex justify-center mt-auto flex-col mb-7">
+                    <h1 class="text-3xl tracking-wide text-center">Looking to sign in?</h1>
+                    <button mat-stroked-button color="primary" class="py-3.5 mx-6 tracking-wider font-bold text-lg" (click)="changePageType('signIn')">
+                        Sign in here
+                    </button>
+                </div>
+        </form>
+    
+        <form *ngIf="isForgotPassPage" [formGroup]="resetPassForm" (ngSubmit)="submitForm()" [@fadeIn]>
+    
+            <h1 class="ml-4 text-3xl tracking-wider">Forgot Password</h1>
+    
+            <div *ngIf="successText" [@popUp]
+             class="border-2 leading-8 text-center mx-3 border-green-400 py-1.5 mb-5 font-bold">
+                <span class="text-green-400 text-xl">{{ successText }}</span>
+            </div>
+            
+                <div class="flex flex-col mx-4">
+                    <mat-form-field [floatLabel]="floatLabelControl.value" appearance="outline">
+                        <mat-label>Email:</mat-label>
+                        <input matInput formControlName="email" type="email">
+                        <mat-error *ngIf="getResetPassEmail.invalid && getResetPassEmail.dirty">
+                            A valid email address is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="flex justify-between items-center mr-4 ml-2">
+                    <button mat-button class="px-1.5" (click)="changePageType('signIn')">
+                        <span class="underline tracking-wider font-bold text-base text-gray-200">
+                            Back
+                        </span>
+                    </button>
+                    <button color="accent" mat-raised-button type="submit" [disabled]="resetPassForm.invalid"
+                     class="font-bold tracking-wider text-xl hover:brightness-110 transition-all py-3 px-2">Send reset request</button>
+                </div>
+        </form>
+
+    </div>
+</ng-template>
 
 
 

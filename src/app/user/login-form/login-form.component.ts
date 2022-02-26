@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -14,19 +14,42 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
         style({opacity:0}),
         animate(500, style({opacity:1})) 
       ]),
-    ])
+    ]),
+    trigger("popUp", [
+      transition(":enter", [
+        style({transform: 'scale(1)'}),
+        animate(100, style({transform: 'scale(1.1)'}))
+      ])
+    ]),
   ]
 })
 export class LoginFormComponent implements OnInit {
-  form!: FormGroup;
+  @Input() hasAuthModuleLoaded: boolean = false;
+  signInForm!: FormGroup;
+  createAccForm!: FormGroup;
+  resetPassForm!: FormGroup;
   pageType: "signIn" | "createAcc" | "forgotPass" = "signIn";
   floatLabelControl = new FormControl('always');
+  errorText: string = "";
+  successText: string = "";
+  isSubmitting = false;
   
 
   constructor(public afAuth: AngularFireAuth, private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.form = this.fb.group({
+    this.signInForm = this.fb.group({
+      "email": [
+        "", 
+        [Validators.required, Validators.email]
+      ],
+      "password": [
+        "", 
+        [Validators.required, Validators.minLength(8)]
+      ],
+    });
+
+    this.createAccForm = this.fb.group({
       "email": [
         "", 
         [Validators.required, Validators.email]
@@ -37,17 +60,36 @@ export class LoginFormComponent implements OnInit {
       ],
       "confPassword": ["", []],
     });
+
+    this.resetPassForm = this.fb.group({
+      "email": [
+        "",
+        [Validators.required, Validators.email]
+      ]
+    });
   }
 
-  get getEmail() {
-    return this.form.get("email")!;
+  get getSignInEmail() {
+    return this.signInForm.get("email")!;
   }
 
-  get getPassword() {
-    return this.form.get("password")!;
+  get getSignInPassword() {
+    return this.signInForm.get("password")!;
+  }
+
+
+  get getCreateAccEmail() {
+    return this.createAccForm.get("email")!;
+  }
+  get getCreateAccPassword() {
+    return this.createAccForm.get("password")!;
   }
   get getConfPassword() {
-    return this.form.get("confPassword")!;
+    return this.createAccForm.get("confPassword")!;
+  }
+
+  get getResetPassEmail() {
+    return this.resetPassForm.get("email")!;
   }
 
 
@@ -63,12 +105,31 @@ export class LoginFormComponent implements OnInit {
     return this.pageType === "forgotPass";
   }
 
-  changePageType(pageType: "signIn" | "createAcc" | "forgotPass" = "signIn") {
+  changePageType(pageType: "signIn" | "createAcc" | "forgotPass") {
     this.pageType = pageType;
   }
 
 
   async submitForm() {
+
+    try {
+      
+      if (this.pageType === "signIn") {
+         const userCred = await this.afAuth.signInWithEmailAndPassword(this.getSignInEmail.value, this.getSignInPassword.value);
+
+      } else if (this.pageType === "createAcc") {
+        const userCred = await this.afAuth.createUserWithEmailAndPassword(this.getCreateAccEmail.value, this.getCreateAccPassword.value);
+
+      } else {
+        await this.afAuth.sendPasswordResetEmail(this.getResetPassEmail.value);
+
+
+      }
+
+    } catch (error) {
+      this.errorText = "Invalid login attempt"
+      console.error("There was an unexpected error:", error);
+    }
 
   }
 }
