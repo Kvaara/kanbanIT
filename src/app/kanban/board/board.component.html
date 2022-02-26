@@ -1,0 +1,30 @@
+<mat-card class="w-80">
+    <mat-card-header>
+      <!-- Slot for the handle -->
+      <ng-content></ng-content>
+      <mat-card-title>
+        {{ board.title }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{ board.id }}
+      </mat-card-subtitle>
+    </mat-card-header>
+  
+    <div
+      class=""
+      cdkDropList
+      cdkDropListOrientation="vertical"
+      (cdkDropListDropped)="onDrop($event)"
+    >
+      <div
+        cdkDrag
+        *ngFor="let task of board.tasks; let i = index"
+      >
+        <mat-card [ngClass]="task.label" class="flex justify-between items-center">
+            {{ task.description }} 
+            <mat-icon cdkDragHandle class="cursor-move">drag_handle</mat-icon>
+        </mat-card>
+        
+      </div>
+    </div>
+  </mat-card>
