@@ -1,7 +1,7 @@
 <div cdkDropList (cdkDropListDropped)="onDrop($event)" cdkDropListOrientation="horizontal" class="mt-6 mx-6 overflow-auto">
 
     <div class="flex justify-evenly gap-12 w-full min-w-min mb-6">
-        <app-board cdkDrag *ngFor="let board of boards" [board]="board" class="h-96 w-80">
+        <app-board cdkDrag *ngFor="let board of boards" [board]="board" class="h-max w-80">
             <mat-icon cdkDragHandle class="cursor-move scale-150">drag_indicator</mat-icon>
         </app-board>
 

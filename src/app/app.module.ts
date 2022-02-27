@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     MatButtonModule,
     SharedModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    MatDialogModule,
     // provideFirebaseApp(() => initializeApp(environment.firebase)),
     // provideAuth(() => getAuth()),
     // provideFirestore(() => getFirestore()),

@@ -1,7 +1,7 @@
 .cdk-drag-placeholder {
   opacity: 0.2;
   //   width: 330px;
-  border: 2px dashed gray;
+  border: 3px dashed gray;
   border-radius: 6px;
   border-color: #ffb826;
   //   margin: 0 10px;
@@ -28,12 +28,14 @@
   color: black;
 }
 .purple {
-  background: #b15cff;
+  background: #b05cffbb;
 }
 .red {
-  background: #e74a4ad3;
+  background: #e74a4ab0;
 }
 .gray {
   background: gray;
-  text-decoration: line-through;
+}
+.handle {
+  text-decoration: none !important;
 }
