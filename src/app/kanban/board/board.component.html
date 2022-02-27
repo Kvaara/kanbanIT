@@ -1,14 +1,21 @@
-<mat-card class="w-80">
-    <mat-card-header>
-      <!-- Slot for the handle -->
-      <ng-content></ng-content>
-      <mat-card-title>
-        {{ board.title }}
-      </mat-card-title>
-      <mat-card-subtitle>
+<mat-card class="h-full p-2.5">
+    <!-- <mat-card-header class="flex justify-between items-center"> -->
+
+      <div class="flex justify-between items-center mb-5">
+        <h1 class="m-0 text-2xl">
+          {{ board.title }}
+        </h1>
+
+        <!-- Slot for the handle -->
+        <ng-content></ng-content>
+      </div>
+
+
+      <!-- <mat-card-subtitle>
         {{ board.id }}
-      </mat-card-subtitle>
-    </mat-card-header>
+      </mat-card-subtitle> -->
+
+    <!-- </mat-card-header> -->
   
     <div
       class=""
@@ -17,14 +24,39 @@
       (cdkDropListDropped)="onDrop($event)"
     >
       <div
-        cdkDrag
-        *ngFor="let task of board.tasks; let i = index"
-      >
-        <mat-card [ngClass]="task.label" class="flex justify-between items-center">
+       cdkDrag
+       *ngFor="let task of board.tasks; let i = index"
+       class="h-[68px]"
+       >
+        <mat-card [ngClass]="task.label" class="flex justify-start items-center gap-3">
+          <div class="flex justify-center items-center bg-slate-900 rounded p-1">
+            <mat-icon cdkDragHandle class="cursor-move scale-125">drag_handle</mat-icon>
+          </div>
+          <span class="text-xl">
             {{ task.description }} 
-            <mat-icon cdkDragHandle class="cursor-move">drag_handle</mat-icon>
+          </span> 
         </mat-card>
-        
+       
       </div>
+
+      <div class="rounded mt-3 relative">
+        <mat-card class="flex justify-start items-center gap-3 blur-sm select-none brightness-50">
+          <div class="flex justify-center items-center bg-slate-900 rounded p-1">
+            <mat-icon class="scale-125">drag_handle</mat-icon>
+          </div>
+          <span class="text-lg">
+            Lorem ipsum dolor sit.
+          </span> 
+        </mat-card>
+
+        <div class="absolute content-center inset-0 flex items-stretch justify-center ">
+          <button mat-stroked-button (click)="newTask()"
+           class="flex-1 border-gray-900 tracking-wider hover:tracking-normal transition-all">
+            <mat-icon class="scale-125 mb-0.5">add_circle_outline</mat-icon>
+            <span class="ml-2 text-[16px] inline-block mb-0.5 font-bold">New Task</span>
+          </button>
+        </div>
+      </div>
+
     </div>
   </mat-card>

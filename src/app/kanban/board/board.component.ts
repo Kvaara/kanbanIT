@@ -20,4 +20,8 @@ export class BoardComponent implements OnInit {
     moveItemInArray(this.board.tasks!, $event.previousIndex, $event.currentIndex);
     await this.boardService.updateTasks(this.board.id!, this.board.tasks!);
   }
+
+  async newTask() {
+    // this.boardService.updateTasks
+  }
 }

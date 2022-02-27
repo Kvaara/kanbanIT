@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { BoardListComponent } from './kanban/board-list/board-list.component';
-import { AuthGuard } from './user/auth.guard';
+import { AngularFireAuthGuard, redirectUnauthorizedTo } from "@angular/fire/compat/auth-guard";
+
+
+const redirectUnauthorizedToHome = () => redirectUnauthorizedTo("/");
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -10,7 +13,11 @@ const routes: Routes = [
   { path: 'kanban',
     component: BoardListComponent, 
     loadChildren: () => import("./kanban/kanban.module").then((m) => m.KanbanModule),
-    canActivate: [AuthGuard],
+    canActivate: [AngularFireAuthGuard],
+    data: {
+    isAuthOnly: true,
+    authGuardPipe: redirectUnauthorizedToHome,
+  }
   },
 ];
 

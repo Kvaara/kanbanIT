@@ -1,13 +1,15 @@
-<div cdkDropList (cdkDropListDropped)="onDrop($event)" cdkDropListOrientation="horizontal" class="mt-6">
+<div cdkDropList (cdkDropListDropped)="onDrop($event)" cdkDropListOrientation="horizontal" class="mt-6 mx-6 overflow-auto">
 
-    <div class="flex justify-evenly">
-        <app-board cdkDrag *ngFor="let board of boards" [board]="board" class="">
-            <mat-icon cdkDragHandle class="cursor-move">drag_indicator</mat-icon>
+    <div class="flex justify-evenly gap-12 w-full min-w-min mb-6">
+        <app-board cdkDrag *ngFor="let board of boards" [board]="board" class="h-96 w-80">
+            <mat-icon cdkDragHandle class="cursor-move scale-150">drag_indicator</mat-icon>
         </app-board>
 
-        <button mat-raised-button color="primary" cdkDragDisabled (click)="createBoard()">
-            New Board
-        </button>
+        <div class="h-96 w-80 border-primary bg-transparent border-4 border-dashed flex justify-center items-stretch">
+            <button mat-raised-button cdkDragDisabled (click)="createBoard()" class="flex-1">
+                New Board
+            </button>
+        </div>
 
     </div>
 
