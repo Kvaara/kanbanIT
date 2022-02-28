@@ -1,52 +1,58 @@
-<mat-card class="h-full p-2.5" cdkDropList cdkDropListOrientation="vertical"
- (cdkDropListDropped)="onDrop($event)" [cdkDropListConnectedTo]="deleteZone">
-      <div class="flex justify-between items-center mb-3.5">
-        <h1 class="m-0 text-2xl">
-          {{ board.title }}
-        </h1>
+<mat-card class="h-full p-2.5">
 
-        <!-- Slot for the handle -->
-        <ng-content></ng-content>
-      </div>
+ <div cdkDropList cdkDropListOrientation="vertical"
+ (cdkDropListDropped)="onDrop($event)" [cdkDropListConnectedTo]="deleteZone"
+ [cdkDropListData]="{isBoard: false, board}" class="pb-1">
 
-    <div class="flex flex-col">
-      <div *ngFor="let task of board.tasks; let i = index" [@fadeIn]>
-        <mat-card [ngClass]="task.label" class="flex justify-start items-center my-1 gap-2 min-h-[70px]" cdkDrag>
-          <div class="flex justify-center items-center bg-slate-900 rounded p-1">
-            <mat-icon cdkDragHandle class="cursor-move scale-125 text-white">
-              drag_handle
-            </mat-icon>
-          </div>
-          <span class="text-xl break-all" [ngClass]="task.label === 'gray' ? 'line-through' : ''">
-            {{ task.description }} 
-          </span> 
-        </mat-card>
-       
-      </div>
+ <div class="flex justify-between items-center mb-3.5">
+   <h1 class="m-0 text-2xl">
+     {{ board.title }}
+   </h1>
+
+   <!-- Slot for the handle -->
+   <ng-content></ng-content>
+ </div>
+
+<div class="flex flex-col">
+ <div *ngFor="let task of board.tasks; let i = index" [@fadeIn]>
+   <mat-card [ngClass]="task.label" class="flex justify-start items-center my-1 gap-2 min-h-[70px]" cdkDrag>
+     <div class="flex justify-center items-center bg-slate-900 rounded p-1">
+       <mat-icon cdkDragHandle class="cursor-move scale-125 text-white">
+         drag_handle
+       </mat-icon>
+     </div>
+     <span class="text-xl break-all" [ngClass]="task.label === 'gray' ? 'line-through' : ''">
+       {{ task.description }} 
+     </span> 
+   </mat-card>
+  
+</div>
+
+ </div>
       
-      <div class="rounded relative mt-1">
-        <mat-card class="flex justify-start items-center gap-2 blur-sm select-none brightness-50">
-          <div class="flex justify-center items-center bg-slate-900 rounded p-1">
-            <mat-icon class="scale-125">drag_handle</mat-icon>
-          </div>
-          <span class="text-lg">
-            Lorem ipsum dolor sit.
-          </span> 
-        </mat-card>
-
-        <div class="absolute content-center inset-0 flex items-stretch justify-center ">
-          <button mat-stroked-button (click)="openNewTaskDialog()"
-           (mouseenter)="showAddText = true" (mouseleave)="showAddText = false"
-           class="flex-1 border-gray-900 brightness-75 hover:brightness-100">
-            <mat-icon class="scale-150 mb-0.5">add_circle_outline</mat-icon>
-              <span [@fadeIn] 
-               *ngIf="showAddText" 
-               class="ml-2.5 text-[19px] tracking-wider mb-0.5">
-                New Task
-              </span>
-          </button>
-        </div>
-      </div>
-
+ 
+</div>
+<div class="rounded relative">
+  <mat-card class="flex justify-start items-center gap-2 blur-sm select-none brightness-50">
+    <div class="flex justify-center items-center bg-slate-900 rounded p-1">
+      <mat-icon class="scale-125">drag_handle</mat-icon>
     </div>
+    <span class="text-lg">
+      Lorem ipsum dolor sit.
+    </span> 
+  </mat-card>
+
+  <div class="absolute content-center inset-0 flex items-stretch justify-center ">
+    <button mat-stroked-button (click)="openNewTaskDialog()"
+     (mouseenter)="showAddText = true" (mouseleave)="showAddText = false"
+     class="flex-1 border-gray-900 brightness-75 hover:brightness-100">
+      <mat-icon class="scale-150 mb-0.5">add_circle_outline</mat-icon>
+        <span [@fadeIn] 
+         *ngIf="showAddText" 
+         class="ml-2.5 text-[19px] tracking-wider mb-0.5">
+          New Task
+        </span>
+    </button>
+  </div>
+</div>
   </mat-card>

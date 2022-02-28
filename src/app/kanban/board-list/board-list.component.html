@@ -1,23 +1,25 @@
 
 <div class="flex flex-col" style="height: calc(100% - 64px);">
 
-    <div class="h-full pb-3 px-3">
+    <div class="h-full pb-3 px-1">
 
         <div class="flex h-5/6">
         
             <div cdkDropList (cdkDropListDropped)="onDropMove($event)" cdkDropListOrientation="horizontal"
              [cdkDropListConnectedTo]="[deleteZone]" appVerticalScrollWithMouseDown id="boardsContainer"
-             class="flex gap-4 max-w-fit my-3 mx-3 overflow-auto max-h-full bg-[#212121] rounded py-2 px-2 shadow-xl">
-                <app-board cdkDrag *ngFor="let board of boards" [board]="board" [deleteZone]="deleteZone"
+             class="flex gap-4 my-3 mx-3 overflow-auto bg-[#212121] rounded py-2 px-2 border-2 border-slate-900 w-full"
+             [cdkDropListData]="{isBoard: true}">
+                <app-board cdkDrag *ngFor="let board of boards" [board]="board" [deleteZone]="deleteZone" [@fadeIn]
                  class="h-max min-w-[320px] border-[5px] border-transparent">
-                    <mat-icon cdkDragHandle class="cursor-move scale-150">drag_indicator</mat-icon>
+                    <mat-icon cdkDragHandle 
+                     class="cursor-move scale-150">drag_indicator</mat-icon>
                 </app-board>
         
                 
             </div>
     
             <!-- Placeholder Skeleton Board That Acts As A Button -->
-            <div class="relative h-[400px] w-80 select-none my-4 mx-3">
+            <!-- <div class="relative h-[400px] w-80 select-none my-4 mx-3">
                 <mat-card class="brightness-[.3] blur-sm pointer-events-none border-4 border-primary">
                     <div class="flex justify-between items-center mb-5">
                       <h1 class="m-0 text-2xl">
@@ -96,21 +98,37 @@
                     <mat-icon class="translate-x-10 translate-y-3 scale-[1.75]">add</mat-icon>
                     <span class="translate-x-1 mt-8 text-4xl font-bold">New Kanban</span>
                 </div>
-            </div>
+            </div> -->
             
         </div>
     
-        <div cdkDropList (cdkDropListDropped)="onDropDelete($event)" #deleteZone="cdkDropList" id="deleteZone"
-         class="rounded border-4 gap-3 border-red-300 h-1/6 border-dashed flex brightness-50
-         hover:brightness-100 transition-all select-none tracking-widest hover:tracking-normal overflow-hidden
-         justify-center items-center">
-            <mat-icon class="scale-[2] text-red-300">delete</mat-icon>
-            <span class="font-bold text-2xl text-red-300">DELETE</span>
-            <span class="tracking-wide">(by dropping here)</span>
+
+        <div class="h-1/6 flex items-stretch gap-4 px-3">
+
+            <div cdkDropList (cdkDropListDropped)="onDropDelete($event)" #deleteZone="cdkDropList" id="deleteZone"
+             class="rounded border-4 gap-2 border-red-300 border-dashed flex brightness-50
+            transition-all select-none tracking-widest overflow-hidden
+             justify-center items-center flex-1 text-center">
+                <mat-icon class="scale-[1.75] text-red-300">delete</mat-icon>
+                <span class="font-bold text-xl text-red-300">DELETE</span>
+                <span class="tracking-wide">(by dropping here)</span>
+            </div>
+
+            <button mat-button 
+             class="tracking-widest hover:tracking-normal transition-all w-20 hover:brightness-105"
+             (click)="createBoard()">
+                <div class="flex flex-col justify-center items-center">
+                    <div class="flex mt-4 mb-4">
+                        <mat-icon class="scale-[3]" color="primary">view_kanban</mat-icon>
+                        <mat-icon class="absolute translate-x-7 translate-y-6 scale-125">add</mat-icon>
+                    </div>
+                    <span class="font-bold h-6">NEW</span> 
+                    <span class="font-bold h-6">KANBAN</span> 
+                </div>
+             </button>
+
         </div>
 
     </div>
-
-
 </div>
 

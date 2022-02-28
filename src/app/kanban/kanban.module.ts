@@ -19,7 +19,7 @@ import { VerticalScrollWithMouseDownDirective } from './vertical-scroll-with-mou
     BoardComponent,
     BoardDialogComponent,
     TaskDialogComponent,
-    VerticalScrollWithMouseDownDirective
+    VerticalScrollWithMouseDownDirective,
   ],
   imports: [
     CommonModule,

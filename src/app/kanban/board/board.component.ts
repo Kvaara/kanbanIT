@@ -17,6 +17,10 @@ import { TaskDialogComponent } from '../dialogs/task-dialog.component';
         style({opacity:0}),
         animate(300, style({opacity:1})) 
       ]),
+      transition(':leave', [ 
+        style({transform: 'scale(1)', opacity: 1}),
+        animate(200, style({transform: 'scale(0)', opacity: 0})) 
+      ]),
     ]),
     trigger("popUp", [
       transition(":enter", [
@@ -39,7 +43,7 @@ export class BoardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async onDrop($event: CdkDragDrop<string[]>) {
+  async onDrop($event: CdkDragDrop<any>) {
     moveItemInArray(this.board.tasks!, $event.previousIndex, $event.currentIndex);
     await this.boardService.updateTasks(this.board.id!, this.board.tasks!);
   }
