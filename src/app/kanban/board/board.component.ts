@@ -57,9 +57,9 @@ export class BoardComponent implements OnInit {
       data: data,
     })
 
-    dialogRef.afterClosed().subscribe((data: IData) => {
+    dialogRef.afterClosed().subscribe(async (data: IData) => {
       this.board.tasks?.push(data.task);
-      this.boardService.updateTasks(this.board.id!, this.board.tasks!);
+      await this.boardService.updateTasks(this.board.id!, this.board.tasks!);
     });
     
     

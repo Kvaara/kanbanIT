@@ -18,9 +18,12 @@ export class BoardListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.sub = this.boardService.getUserBoards().subscribe((boards) => {
       boards.forEach((board) => {
-        console.log(board.data());
+        const id = board.id;
         this.boards.push(
-          board.data(),
+          {
+            ...board.data(),
+            id,
+          }
         )
       })
     });
