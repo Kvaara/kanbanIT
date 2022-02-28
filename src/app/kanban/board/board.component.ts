@@ -4,7 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Board, Task } from '../board.model';
 import { BoardService } from '../board.service';
-import { IData } from '../dialogs/dialog-data.model';
+import { IDataTask } from '../dialogs/dialog-data-task.model';
 import { TaskDialogComponent } from '../dialogs/task-dialog.component';
 
 @Component({
@@ -15,7 +15,7 @@ import { TaskDialogComponent } from '../dialogs/task-dialog.component';
     trigger('fadeIn', [
       transition(':enter', [ 
         style({opacity:0}),
-        animate(500, style({opacity:1})) 
+        animate(300, style({opacity:1})) 
       ]),
     ]),
     trigger("popUp", [
@@ -28,6 +28,7 @@ import { TaskDialogComponent } from '../dialogs/task-dialog.component';
 })
 export class BoardComponent implements OnInit {
   @Input() board!: Board;
+  showAddText: boolean = false;
 
   constructor(
     private boardService: BoardService,
@@ -43,7 +44,7 @@ export class BoardComponent implements OnInit {
   }
 
   openNewTaskDialog() {
-    const data: IData = {
+    const data: IDataTask = {
       task: {
         description: "",
         label: "purple",
@@ -57,7 +58,7 @@ export class BoardComponent implements OnInit {
       data: data,
     })
 
-    dialogRef.afterClosed().subscribe(async (data: IData) => {
+    dialogRef.afterClosed().subscribe(async (data: IDataTask) => {
       this.board.tasks?.push(data.task);
       await this.boardService.updateTasks(this.board.id!, this.board.tasks!);
     });

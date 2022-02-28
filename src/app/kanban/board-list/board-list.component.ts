@@ -1,8 +1,11 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Board } from '../board.model';
 import { BoardService } from '../board.service';
+import { BoardDialogComponent } from '../dialogs/board-dialog.component';
+import { IDataBoard } from '../dialogs/dialog-data-board.model';
 
 @Component({
   selector: 'app-board-list',
@@ -13,7 +16,10 @@ export class BoardListComponent implements OnInit, OnDestroy {
   boards: Board[] = [];
   sub!: Subscription;
 
-  constructor(private boardService: BoardService) { }
+  constructor(
+    private boardService: BoardService,
+    private dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
     this.sub = this.boardService.getUserBoards().subscribe((boards) => {
@@ -39,13 +45,25 @@ export class BoardListComponent implements OnInit, OnDestroy {
   }
 
   async createBoard() {
-    const newBoard: Board = {
-      title: "Grocery List",
-      priority: 1,
-      tasks: [
-        {description: "Grocery List", label: "red"}
-      ],
+    const data: IDataBoard = {
+      board: {
+        title: "",
+        priority: this.boards.length,
+        tasks: [],
+      },
+      isNew: true
     }
-    await this.boardService.createBoard(newBoard);
+
+    const dialogRef = this.dialog.open(BoardDialogComponent, {
+      width: "350px",
+      hasBackdrop: true,
+      data: data,
+    });
+
+    dialogRef.afterClosed().subscribe(async (data: IDataBoard) => {
+      if (data) {
+        await this.boardService.createBoard(data.board);
+      }
+    });
   }
 }

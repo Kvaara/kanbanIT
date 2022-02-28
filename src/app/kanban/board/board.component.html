@@ -40,9 +40,14 @@
 
         <div class="absolute content-center inset-0 flex items-stretch justify-center ">
           <button mat-stroked-button (click)="openNewTaskDialog()"
-           class="flex-1 border-gray-900 tracking-wider hover:tracking-normal transition-all brightness-75 hover:brightness-100">
+           (mouseenter)="showAddText = true" (mouseleave)="showAddText = false"
+           class="flex-1 border-gray-900 brightness-75 hover:brightness-100">
             <mat-icon class="scale-150 mb-0.5">add_circle_outline</mat-icon>
-            <!-- <span class="ml-2 text-[16px] inline-block mb-0.5 font-bold">New Task</span> -->
+              <span [@fadeIn] 
+               *ngIf="showAddText" 
+               class="ml-2.5 text-[19px] tracking-wider mb-0.5">
+                New Task
+              </span>
           </button>
         </div>
       </div>
