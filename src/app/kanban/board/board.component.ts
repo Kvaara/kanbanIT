@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Board, Task } from '../board.model';
@@ -28,6 +28,7 @@ import { TaskDialogComponent } from '../dialogs/task-dialog.component';
 })
 export class BoardComponent implements OnInit {
   @Input() board!: Board;
+  @Input() deleteZone!: CdkDropList<any>;
   showAddText: boolean = false;
 
   constructor(
@@ -59,8 +60,10 @@ export class BoardComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe(async (data: IDataTask) => {
-      this.board.tasks?.push(data.task);
-      await this.boardService.updateTasks(this.board.id!, this.board.tasks!);
+      if (data) {
+        this.board.tasks?.push(data.task);
+        await this.boardService.updateTasks(this.board.id!, this.board.tasks!);
+      }
     });
     
     

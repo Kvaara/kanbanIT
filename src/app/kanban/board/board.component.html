@@ -1,5 +1,6 @@
-<mat-card class="h-full p-2.5">
-      <div class="flex justify-between items-center mb-5">
+<mat-card class="h-full p-2.5" cdkDropList cdkDropListOrientation="vertical"
+ (cdkDropListDropped)="onDrop($event)" [cdkDropListConnectedTo]="deleteZone">
+      <div class="flex justify-between items-center mb-3.5">
         <h1 class="m-0 text-2xl">
           {{ board.title }}
         </h1>
@@ -8,14 +9,9 @@
         <ng-content></ng-content>
       </div>
 
-    <div
-      class="flex flex-col gap-3"
-      cdkDropList
-      cdkDropListOrientation="vertical"
-      (cdkDropListDropped)="onDrop($event)"
-    >
+    <div class="flex flex-col">
       <div *ngFor="let task of board.tasks; let i = index" [@fadeIn]>
-        <mat-card [ngClass]="task.label" class="flex justify-start items-center gap-3 min-h-[70px]" cdkDrag>
+        <mat-card [ngClass]="task.label" class="flex justify-start items-center my-1 gap-2 min-h-[70px]" cdkDrag>
           <div class="flex justify-center items-center bg-slate-900 rounded p-1">
             <mat-icon cdkDragHandle class="cursor-move scale-125 text-white">
               drag_handle
@@ -28,8 +24,8 @@
        
       </div>
       
-      <div class="rounded relative">
-        <mat-card class="flex justify-start items-center gap-3 blur-sm select-none brightness-50">
+      <div class="rounded relative mt-1">
+        <mat-card class="flex justify-start items-center gap-2 blur-sm select-none brightness-50">
           <div class="flex justify-center items-center bg-slate-900 rounded p-1">
             <mat-icon class="scale-125">drag_handle</mat-icon>
           </div>

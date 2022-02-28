@@ -39,9 +39,21 @@ export class BoardListComponent implements OnInit, OnDestroy {
       this.sub!.unsubscribe();
   }
 
-  async onDrop($event: CdkDragDrop<string[]>) {
+  async onDropMove($event: CdkDragDrop<string[]>) {
     moveItemInArray(this.boards, $event.previousIndex, $event.currentIndex);
     await this.boardService.sortBoards(this.boards);
+  }
+
+  async onDropDelete($event: CdkDragDrop<string[]>) {
+    const boardToDeleteID = this.boards[$event.previousIndex].id;
+    if (boardToDeleteID) {
+      await this.boardService.deleteBoard(boardToDeleteID);
+      this.boards = this.boards.filter((board) => {
+        return board.id !== boardToDeleteID;
+      });
+    } else {
+      console.error("onDropDelete Board object doesn't have a document ID!");
+    }
   }
 
   async createBoard() {
@@ -66,4 +78,5 @@ export class BoardListComponent implements OnInit, OnDestroy {
       }
     });
   }
+
 }

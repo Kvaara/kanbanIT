@@ -1,101 +1,116 @@
-<div cdkDropList (cdkDropListDropped)="onDrop($event)" cdkDropListOrientation="horizontal" class="mt-6 mx-6 overflow-auto">
 
-    <div class="flex gap-10 w-full min-w-min mb-6">
-        <app-board cdkDrag *ngFor="let board of boards" [board]="board" class="h-max w-80 border-[5px] border-transparent">
-            <mat-icon cdkDragHandle class="cursor-move scale-150">drag_indicator</mat-icon>
-        </app-board>
+<div class="flex flex-col" style="height: calc(100% - 64px);">
 
-        <!-- <div class="h-96 w-80 border-primary bg-transparent border-4 border-dashed flex justify-center items-stretch">
-            <button mat-raised-button cdkDragDisabled (click)="createBoard()" class="flex-1">
-                New Board
-            </button>
-        </div> -->
+    <div class="h-full pb-3 px-3">
 
-        <div class="relative h-[400px] w-80 select-none">
-            <mat-card class="brightness-[.3] blur-sm pointer-events-none border-4 border-primary">
-                <div class="flex justify-between items-center mb-5">
-                  <h1 class="m-0 text-2xl">
-                    Beatae, accusantium?
-                  </h1>
-          
-                  <mat-icon cdkDragHandle class="cursor-move scale-150">drag_indicator</mat-icon>
-                </div>
-          
-              <div
-                class="flex flex-col gap-3"
-                cdkDropList
-                cdkDropListOrientation="vertical"
-                (cdkDropListDropped)="onDrop($event)"
-              >
-                <div>
-                  <mat-card class="flex justify-start items-center gap-3 min-h-[70px]" cdkDrag>
-                    <div class="flex justify-center items-center bg-slate-900 rounded p-1">
-                      <mat-icon cdkDragHandle class="cursor-move scale-125 text-white">
-                        drag_handle
-                      </mat-icon>
-                    </div>
-                    <span class="text-xl break-all">
-                      Lorem ipsum dolor sit.
-                    </span> 
-                  </mat-card>
-                  <mat-card class="flex justify-start items-center gap-3 min-h-[70px]" cdkDrag>
-                    <div class="flex justify-center items-center bg-slate-900 rounded p-1">
-                      <mat-icon cdkDragHandle class="cursor-move scale-125 text-white">
-                        drag_handle
-                      </mat-icon>
-                    </div>
-                    <span class="text-xl break-all">
-                      Lorem.
-                    </span> 
-                  </mat-card>
-                  <mat-card class="flex justify-start items-center gap-3 min-h-[70px]" cdkDrag>
-                    <div class="flex justify-center items-center bg-slate-900 rounded p-1">
-                      <mat-icon cdkDragHandle class="cursor-move scale-125 text-white">
-                        drag_handle
-                      </mat-icon>
-                    </div>
-                    <span class="text-xl break-all">
-                      sconsectetur adipisicing.
-                    </span> 
-                  </mat-card>
-                 
-                </div>
+        <div class="flex h-5/6">
+        
+            <div cdkDropList (cdkDropListDropped)="onDropMove($event)" cdkDropListOrientation="horizontal"
+             [cdkDropListConnectedTo]="[deleteZone]" appVerticalScrollWithMouseDown id="boardsContainer"
+             class="flex gap-4 max-w-fit my-3 mx-3 overflow-auto max-h-full bg-[#212121] rounded py-2 px-2 shadow-xl">
+                <app-board cdkDrag *ngFor="let board of boards" [board]="board" [deleteZone]="deleteZone"
+                 class="h-max min-w-[320px] border-[5px] border-transparent">
+                    <mat-icon cdkDragHandle class="cursor-move scale-150">drag_indicator</mat-icon>
+                </app-board>
+        
                 
-                <div class="rounded relative">
-                  <mat-card class="flex justify-start items-center gap-3 blur-sm select-none brightness-50">
-                    <div class="flex justify-center items-center bg-slate-900 rounded p-1">
-                      <mat-icon class="scale-125">drag_handle</mat-icon>
-                    </div>
-                    <span class="text-lg">
-                      Lorem ipsum dolor sit.
-                    </span> 
-                  </mat-card>
-          
-                  <div class="absolute content-center inset-0 flex items-stretch justify-center ">
-                    <button mat-stroked-button
-                     class="flex-1 border-gray-900 tracking-wider hover:tracking-normal transition-all brightness-75 hover:brightness-100">
-                      <mat-icon class="scale-150 mb-0.5">add_circle_outline</mat-icon>
-                    </button>
-                  </div>
-                </div>
-                    
-              </div>
-            </mat-card>
-
-
-            <div class="absolute inset-0 flex flex-col text-center justify-center 
-             items-center tracking-wider hover:tracking-normal transition-all">
-                <button mat-stroked-button class="flex-1 absolute z-10 inset-0 border-primary"
-                 (click)="createBoard()">
-                    
-                </button>
-                <mat-icon class="translate-x-1 scale-[4]" color="primary">view_kanban</mat-icon>
-                <mat-icon class="translate-x-10 translate-y-3 scale-[1.75]">add</mat-icon>
-                <span class="translate-x-1 mt-8 text-4xl font-bold">New Kanban</span>
             </div>
+    
+            <!-- Placeholder Skeleton Board That Acts As A Button -->
+            <div class="relative h-[400px] w-80 select-none my-4 mx-3">
+                <mat-card class="brightness-[.3] blur-sm pointer-events-none border-4 border-primary">
+                    <div class="flex justify-between items-center mb-5">
+                      <h1 class="m-0 text-2xl">
+                        Beatae, accusantium?
+                      </h1>
+              
+                      <mat-icon class="cursor-move scale-150">drag_indicator</mat-icon>
+                    </div>
+              
+                  <div
+                    class="flex flex-col gap-3"
+                  >
+                    <div>
+                      <mat-card class="flex justify-start items-center gap-3 min-h-[70px]">
+                        <div class="flex justify-center items-center bg-slate-900 rounded p-1">
+                          <mat-icon class="cursor-move scale-125 text-white">
+                            drag_handle
+                          </mat-icon>
+                        </div>
+                        <span class="text-xl break-all">
+                          Lorem ipsum dolor sit.
+                        </span> 
+                      </mat-card>
+                      <mat-card class="flex justify-start items-center gap-3 min-h-[70px]">
+                        <div class="flex justify-center items-center bg-slate-900 rounded p-1">
+                          <mat-icon class="cursor-move scale-125 text-white">
+                            drag_handle
+                          </mat-icon>
+                        </div>
+                        <span class="text-xl break-all">
+                          Lorem.
+                        </span> 
+                      </mat-card>
+                      <mat-card class="flex justify-start items-center gap-3 min-h-[70px]">
+                        <div class="flex justify-center items-center bg-slate-900 rounded p-1">
+                          <mat-icon class="cursor-move scale-125 text-white">
+                            drag_handle
+                          </mat-icon>
+                        </div>
+                        <span class="text-xl break-all">
+                          sconsectetur adipisicing.
+                        </span> 
+                      </mat-card>
+                     
+                    </div>
+                    
+                    <div class="rounded relative">
+                      <mat-card class="flex justify-start items-center gap-3 blur-sm select-none brightness-50">
+                        <div class="flex justify-center items-center bg-slate-900 rounded p-1">
+                          <mat-icon class="scale-125">drag_handle</mat-icon>
+                        </div>
+                        <span class="text-lg">
+                          Lorem ipsum dolor sit.
+                        </span> 
+                      </mat-card>
+              
+                      <div class="absolute content-center inset-0 flex items-stretch justify-center ">
+                        <button mat-stroked-button
+                         class="flex-1 border-gray-900 tracking-wider hover:tracking-normal transition-all brightness-75 hover:brightness-100">
+                          <mat-icon class="scale-150 mb-0.5">add_circle_outline</mat-icon>
+                        </button>
+                      </div>
+                    </div>
+                        
+                  </div>
+                </mat-card>
+    
+    
+                <div class="absolute inset-0 flex flex-col text-center justify-center 
+                 items-center tracking-wider hover:tracking-normal transition-all">
+                    <button mat-stroked-button class="flex-1 absolute z-10 inset-0 border-primary"
+                     (click)="createBoard()">
+                        
+                    </button>
+                    <mat-icon class="translate-x-1 scale-[4]" color="primary">view_kanban</mat-icon>
+                    <mat-icon class="translate-x-10 translate-y-3 scale-[1.75]">add</mat-icon>
+                    <span class="translate-x-1 mt-8 text-4xl font-bold">New Kanban</span>
+                </div>
+            </div>
+            
         </div>
-
+    
+        <div cdkDropList (cdkDropListDropped)="onDropDelete($event)" #deleteZone="cdkDropList" id="deleteZone"
+         class="rounded border-4 gap-3 border-red-300 h-1/6 border-dashed flex brightness-50
+         hover:brightness-100 transition-all select-none tracking-widest hover:tracking-normal overflow-hidden
+         justify-center items-center">
+            <mat-icon class="scale-[2] text-red-300">delete</mat-icon>
+            <span class="font-bold text-2xl text-red-300">DELETE</span>
+            <span class="tracking-wide">(by dropping here)</span>
+        </div>
 
     </div>
 
+
 </div>
+

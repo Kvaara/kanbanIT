@@ -9,6 +9,7 @@ import { BoardListComponent } from './board-list/board-list.component';
 import { BoardComponent } from './board/board.component';
 import { BoardDialogComponent } from './dialogs/board-dialog.component';
 import { TaskDialogComponent } from './dialogs/task-dialog.component';
+import { VerticalScrollWithMouseDownDirective } from './vertical-scroll-with-mouse-down.directive';
 
 
 
@@ -17,7 +18,8 @@ import { TaskDialogComponent } from './dialogs/task-dialog.component';
     BoardListComponent,
     BoardComponent,
     BoardDialogComponent,
-    TaskDialogComponent
+    TaskDialogComponent,
+    VerticalScrollWithMouseDownDirective
   ],
   imports: [
     CommonModule,

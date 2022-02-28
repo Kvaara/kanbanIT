@@ -132,3 +132,12 @@ body {
 .logo-icon {
   color: mat.get-color-from-palette($kanbanit-primary, 900);
 }
+
+#deleteZone .cdk-drag-placeholder {
+  position: absolute;
+  align-self: start;
+  opacity: 1;
+  z-index: 10;
+  border-color: transparent !important;
+  margin-top: 24px !important;
+}
