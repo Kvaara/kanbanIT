@@ -74,9 +74,13 @@ export class BoardComponent implements OnInit {
     
   };
 
-  openUpdateTaskDialog(task: Task) {
+  openUpdateTaskDialog(taskToUpdate: Task) {
+    // Angular's change detection is why we copy the task to a new object (new memory reference).
+    const newTaskCopy = {
+      ...taskToUpdate
+    };
     const data: IDataTask = {
-      task,
+      task: newTaskCopy,
       isNew: false,
     }
 
@@ -87,8 +91,11 @@ export class BoardComponent implements OnInit {
       data,
     })
 
-    dialogRef.afterClosed().subscribe(async (data: IDataTask) => {
-      if (data) {
+    dialogRef.afterClosed().subscribe(async (dataWithNewTask: IDataTask) => {
+      if (dataWithNewTask) {
+        // After confirmation, update the task currently in view to the user.
+        taskToUpdate.description = dataWithNewTask.task.description;
+        taskToUpdate.label = dataWithNewTask.task.label;
         await this.boardService.updateTasks(this.board.id!, this.board.tasks!, false);
       }
     });
