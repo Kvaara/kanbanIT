@@ -46,14 +46,24 @@
   text-decoration: none !important;
 }
 
-:hover.board-title {
+:hover.board-title,
+:hover.task-edit {
   & .edit-icon {
     opacity: 1;
     transform: scale(0.9);
   }
 }
 
-.edit-icon {
-  opacity: 0.3;
-  transform: scale(0.75);
+.board-title {
+  .edit-icon {
+    opacity: 0.3;
+    transform: scale(0.75);
+  }
+}
+
+.task-edit {
+  .edit-icon {
+    opacity: 0.5;
+    transform: scale(0.75);
+  }
 }
