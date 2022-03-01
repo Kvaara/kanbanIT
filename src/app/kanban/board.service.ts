@@ -53,8 +53,26 @@ export class BoardService {
     }
   }
 
-  updateTasks(boardID: string, tasks: Task[]) {
-    return this._boardsCollection.doc(boardID).update({ tasks })
+  async updateTasks(boardID: string, tasks: Task[], isCreateAction: boolean) {
+    try {
+      await this._boardsCollection.doc(boardID).update({ tasks });
+      if (isCreateAction) {
+        this.snackBar.open("New task created.", "OK", {
+          duration: 5000,
+        });
+      }
+    } catch (err) {
+      if (isCreateAction) {
+        this.snackBar.open("Task couldn't be created. Please try again...", "OK", {
+          duration: 10000,
+        });
+      } else {
+        this.snackBar.open("Task order couldn't be updated/saved. Check your internet connection...", "OK", {
+          duration: 10000,
+        });
+      }
+      throw new Error("Task couldn't be created/updated. Check your internet connection: " + err);
+    }
   }
 
   async removeTask(boardID: string, task: Task) {

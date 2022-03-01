@@ -45,7 +45,7 @@ export class BoardComponent implements OnInit {
 
   async onDrop($event: CdkDragDrop<any>) {
     moveItemInArray(this.board.tasks!, $event.previousIndex, $event.currentIndex);
-    await this.boardService.updateTasks(this.board.id!, this.board.tasks!);
+    await this.boardService.updateTasks(this.board.id!, this.board.tasks!, false);
   }
 
   openNewTaskDialog() {
@@ -67,7 +67,7 @@ export class BoardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async (data: IDataTask) => {
       if (data) {
         this.board.tasks?.push(data.task);
-        await this.boardService.updateTasks(this.board.id!, this.board.tasks!);
+        await this.boardService.updateTasks(this.board.id!, this.board.tasks!, true);
       }
     });
     
@@ -75,12 +75,22 @@ export class BoardComponent implements OnInit {
   };
 
   openUpdateTaskDialog(task: Task) {
+    const data: IDataTask = {
+      task,
+      isNew: false,
+    }
+
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: "350px",
-      data: {
-        task,
-        isNew: false,
-      }
+      hasBackdrop: true,
+      autoFocus: false,
+      data,
     })
-  }
-}
+
+    dialogRef.afterClosed().subscribe(async (data: IDataTask) => {
+      if (data) {
+        await this.boardService.updateTasks(this.board.id!, this.board.tasks!, false);
+      }
+    });
+  };
+};

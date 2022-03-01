@@ -14,21 +14,25 @@
  </div>
 
 <div class="flex flex-col">
- <div *ngFor="let task of board.tasks; let i = index" [@fadeIn]>
-   <mat-card [ngClass]="task.label" class="flex justify-start items-center my-1 gap-2 min-h-[70px]" cdkDrag>
-     <div class="flex justify-center items-center bg-slate-900 rounded p-1">
-       <mat-icon cdkDragHandle class="cursor-move scale-125 text-white">
-         drag_handle
-       </mat-icon>
-     </div>
-     <span class="text-xl break-all" [ngClass]="task.label === 'gray' ? 'line-through' : ''">
-       {{ task.description }} 
-     </span> 
-   </mat-card>
-  
-</div>
+  <div *ngFor="let task of board.tasks; let i = index" [@fadeIn]>
+   <mat-card [ngClass]="task.label" class="flex justify-start items-center my-1 gap-2 min-h-[70px] flex-1 pr-0 pl-2" cdkDrag>
+    <div class="flex justify-center items-center bg-slate-900 rounded p-1">
+      <mat-icon cdkDragHandle class="cursor-move scale-125 text-white">
+        drag_handle
+      </mat-icon>
+    </div>
 
- </div>
+    <span class="max-w-[194px] text-xl break-all flex-1" [ngClass]="task.label === 'gray' ? 'line-through' : ''">
+      {{ task.description }} 
+    </span> 
+
+    <button mat-icon-button (click)="openUpdateTaskDialog(task)">
+      <mat-icon>edit</mat-icon>
+    </button>
+
+   </mat-card>
+  </div>
+</div>
       
  
 </div>
