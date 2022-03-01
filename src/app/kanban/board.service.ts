@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { Board, Task } from './board.model';
 import firebase from "firebase/compat/app";
 import { switchMap } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -13,36 +14,63 @@ export class BoardService {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private snackBar: MatSnackBar,
   ) {
     this._boardsCollection = this.db.collection("boards");
   }
 
   async createBoard(data: Board) {
-    const user = await this.afAuth.currentUser;
-    if (user) {
-      return this._boardsCollection.add({
+    try {
+      const user = await this.afAuth.currentUser;
+      const docRef = await this._boardsCollection.ref.add({
         ...data,
-        userUID: user.uid,
+        userUID: user!.uid,
       })
-    } else {
-      console.error("User not logged in!");
-      return;
+      this.snackBar.open("New board created.", "OK", {
+        duration: 5000,
+      });
+      return docRef.id;
+    } catch (err) {
+      this.snackBar.open("New board couldn't be created. Please try again...", "OK", {
+        duration: 10000,
+      });
+      throw new Error("New board couldn't be created. Check your internet connection: " + err);
     }
   }
 
-  deleteBoard(boardID: string) {
-    return this._boardsCollection.doc(boardID).delete();
+  async deleteBoard(boardID: string) {
+    try {
+      await this._boardsCollection.doc(boardID).delete();
+      this.snackBar.open("Board deleted.", "OK", {
+        duration: 5000,
+      });
+    } catch (err) {
+      this.snackBar.open("Board couldn't be deleted. Please try again...", "OK", {
+        duration: 10000,
+      });
+      throw new Error("Board couldn't be deleted. Check your internet connection: " + err);
+    }
   }
 
   updateTasks(boardID: string, tasks: Task[]) {
     return this._boardsCollection.doc(boardID).update({ tasks })
   }
 
-  removeTask(boardID: string, task: Task) {
-    return this._boardsCollection.doc(boardID).ref.update({
-      tasks: firebase.firestore.FieldValue.arrayRemove(task)
-    });
+  async removeTask(boardID: string, task: Task) {
+    try {
+      await this._boardsCollection.doc(boardID).ref.update({
+        tasks: firebase.firestore.FieldValue.arrayRemove(task)
+      });
+      this.snackBar.open("Task deleted.", "OK", {
+        duration: 5000,
+      });
+    } catch (err) {
+      this.snackBar.open("Task couldn't be deleted. Please try again...", "OK", {
+        duration: 10000,
+      });
+      throw new Error("Task couldn't be deleted. Check your internet connection: " + err);
+    }
   }
 
   getUserBoards() {

@@ -61,6 +61,7 @@ export class BoardComponent implements OnInit {
       width: "350px",
       hasBackdrop: true,
       data: data,
+      autoFocus: false,
     })
 
     dialogRef.afterClosed().subscribe(async (data: IDataTask) => {

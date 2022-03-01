@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Board, Task } from '../board.model';
 import { BoardService } from '../board.service';
 import { BoardDialogComponent } from '../dialogs/board-dialog.component';
+import { ConfirmDialogComponent } from '../dialogs/confirm-dialog.component';
 import { IDataBoard } from '../dialogs/dialog-data-board.model';
 
 @Component({
@@ -63,46 +64,63 @@ export class BoardListComponent implements OnInit, OnDestroy {
     await this.boardService.sortBoards(this.boards);
   }
 
-  async onDropDelete($event: CdkDragDrop<any>) {
+  onDropDelete($event: CdkDragDrop<any>) {
     const data = $event.previousContainer.data;
     const previousIndex = $event.previousIndex;
 
     if (data.isBoard) {
       const boardID = this.boards[previousIndex].id!;
-      await this.deleteBoard(boardID);
+      this.deleteBoard(boardID);
     } else {
       const boardID = data.board.id!;
       const task = data.board.tasks[previousIndex];
-      await this.deleteTask(boardID, task);
+      this.deleteTask(boardID, task);
     }
 
     
   }
 
-  async deleteBoard(boardID: string) {
-    if (boardID) {
-      await this.boardService.deleteBoard(boardID);
-      this.boards = this.boards.filter((board) => {
-        return board.id !== boardID;
-      });
-    } else {
-      console.error("onDropDelete Board object doesn't have a document ID!");
-    }
-  }
+  deleteBoard(boardID: string) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: "350px",
+      hasBackdrop: true,
+      autoFocus: false,
+    });
 
-  async deleteTask(boardID: string, task: Task) {
-    if (boardID) {
-      await this.boardService.removeTask(boardID, task);
-      this.boards.forEach((board) => {
-        if (board.id === boardID) {
-          board.tasks = board.tasks?.filter((currentTask) => {
-            return currentTask !== task
-          });
-        } 
-      });
-    } else {
-      console.error("onDropDelete Board object doesn't have a document ID!");
-    }
+    dialogRef.afterClosed().subscribe(async (doDeleteBoard) => {
+      if (doDeleteBoard && boardID) {
+        await this.boardService.deleteBoard(boardID);
+        this.boards = this.boards.filter((board) => {
+          return board.id !== boardID;
+        });
+      } else {
+        console.error("To be deleted Board object doesn't have a document ID and/or doDeleteBoard was false!");
+      }
+    });
+  };
+
+  deleteTask(boardID: string, task: Task) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: "350px",
+      hasBackdrop: true,
+      autoFocus: false,
+    });
+
+    dialogRef.afterClosed().subscribe(async (doDeleteTask) => {
+      if (doDeleteTask && boardID) {
+        await this.boardService.removeTask(boardID, task);
+        this.boards.forEach((board) => {
+          if (board.id === boardID) {
+            board.tasks = board.tasks?.filter((currentTask) => {
+              return currentTask !== task
+            });
+          } 
+        });
+      } else {
+        console.error("onDropDelete Board object doesn't have a document ID and/or doDeleteTask was false");
+      }
+    });
+
   }
 
   async createBoard() {
@@ -117,6 +135,7 @@ export class BoardListComponent implements OnInit, OnDestroy {
 
     const dialogRef = this.dialog.open(BoardDialogComponent, {
       width: "350px",
+      autoFocus: false,
       hasBackdrop: true,
       data: data,
     });
@@ -124,10 +143,13 @@ export class BoardListComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(async (data: IDataBoard) => {
       if (data) {
         const board = data.board;
-        await this.boardService.createBoard(board);
-        this.boards.push(board);
+        const addedBoardID = await this.boardService.createBoard(board);
+        this.boards.push({
+          ...board,
+          id: addedBoardID,
+        });
       }
-    });
+    })
   }
 
 }
