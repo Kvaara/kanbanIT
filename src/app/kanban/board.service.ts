@@ -75,6 +75,20 @@ export class BoardService {
     }
   }
 
+  async updateBoard(boardID: string, board: Board) {
+    try {
+      await this._boardsCollection.doc(boardID).update({title: board.title});
+      this.snackBar.open("Kanban title updated.", "OK", {
+        duration: 5000,
+      });
+    } catch (err) {
+      this.snackBar.open("Kanban title couldn't be updated. Please try again...", "OK", {
+        duration: 10000,
+      });
+      throw new Error("Board's title couldn't be updated. Check your internet connection: " + err);
+    }
+  } 
+
   async removeTask(boardID: string, task: Task) {
     try {
       await this._boardsCollection.doc(boardID).ref.update({

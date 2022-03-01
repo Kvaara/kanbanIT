@@ -45,3 +45,15 @@
 .handle {
   text-decoration: none !important;
 }
+
+:hover.board-title {
+  & .edit-icon {
+    opacity: 1;
+    transform: scale(0.9);
+  }
+}
+
+.edit-icon {
+  opacity: 0.3;
+  transform: scale(0.75);
+}

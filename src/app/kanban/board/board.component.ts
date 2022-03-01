@@ -4,6 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Board, Task } from '../board.model';
 import { BoardService } from '../board.service';
+import { BoardDialogComponent } from '../dialogs/board-dialog.component';
 import { IDataTask } from '../dialogs/dialog-data-task.model';
 import { TaskDialogComponent } from '../dialogs/task-dialog.component';
 
@@ -100,4 +101,30 @@ export class BoardComponent implements OnInit {
       }
     });
   };
+
+  openUpdateBoardDialog(boardToUpdate: Board) {
+    const newBoardCopy = {
+      ...boardToUpdate,
+    }
+
+    const data = {
+      board: newBoardCopy,
+      isNew: false,
+    }
+
+    const dialogRef = this.dialog.open(BoardDialogComponent, {
+      width: "350px",
+      hasBackdrop: true,
+      autoFocus: false,
+      data,
+    })
+
+    dialogRef.afterClosed().subscribe(async (dataWithNewBoard) => {
+      if (dataWithNewBoard) {
+        // After confirmation, update the task currently in view to the user.
+        boardToUpdate.title = dataWithNewBoard.board.title;
+        await this.boardService.updateBoard(this.board.id!, boardToUpdate);
+      }
+    });
+  }
 };
