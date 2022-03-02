@@ -1,5 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AfterViewInit, Component, ComponentRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder } from '@angular/forms';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
@@ -29,6 +30,7 @@ export class ShellComponent implements AfterViewInit {
   constructor(
     private breakPointObserver: BreakpointObserver,
     private snackService: SnackService,
+    private afAuth: AngularFireAuth,
   ) {}
 
 
@@ -66,6 +68,12 @@ export class ShellComponent implements AfterViewInit {
 
   toggleLeftNavDrawer() {
     this.leftNavDrawer.toggle();
+  };
+
+  async isUserAuthenticated() {
+    const user = await this.afAuth.currentUser;
+    const isAuthenticated = !!user;
+    return isAuthenticated;
   };
 
   

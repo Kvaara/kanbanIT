@@ -6,12 +6,14 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { SharedModule } from '../shared/shared.module';
 import { GoogleSigninDirective } from './google-signin.directive';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 
 @NgModule({
   declarations: [
     LoginFormComponent,
-    GoogleSigninDirective
+    GoogleSigninDirective,
+    ProfilePageComponent
   ],
   imports: [
     CommonModule,
