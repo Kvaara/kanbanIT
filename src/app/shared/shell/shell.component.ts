@@ -1,9 +1,9 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AfterViewInit, Component, ComponentRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, ComponentRef, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder } from '@angular/forms';
 import { MatSidenav } from '@angular/material/sidenav';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
 import { SnackService } from 'src/app/services/snack.service';
 import { LoginFormComponent } from '../../user/login-form/login-form.component';
@@ -16,11 +16,14 @@ import { LoginFormComponent } from '../../user/login-form/login-form.component';
     FormBuilder
   ]
 })
-export class ShellComponent implements AfterViewInit {
+export class ShellComponent implements AfterViewInit, OnDestroy {
   @ViewChild("leftNavDrawer") leftNavDrawer!:  MatSidenav;
   @ViewChild("authDrawer") authDrawer!:  MatSidenav;
   @ViewChild("authForms", {read: ViewContainerRef}) authFormsContainer!:  ViewContainerRef;
   loginComponent?: ComponentRef<LoginFormComponent>;
+  isAuthenticatedSubscription: Subscription;
+  isUserAuthenticated!: boolean;
+  isPageReady: boolean = false;
 
   isHandset$: Observable<boolean> = this.breakPointObserver.observe(Breakpoints.XSmall).pipe(
     map((breakpointState) => breakpointState.matches),
@@ -31,10 +34,20 @@ export class ShellComponent implements AfterViewInit {
     private breakPointObserver: BreakpointObserver,
     private snackService: SnackService,
     private afAuth: AngularFireAuth,
-  ) {}
+  ) {
+    this.isAuthenticatedSubscription = this.afAuth.user.pipe(
+      map((user) => !!user),
+      ).subscribe((isAuthenticated) => {
+        this.isPageReady = true;
+        this.isUserAuthenticated = isAuthenticated;
+    });
+  }
 
+  ngOnDestroy(): void {
+      this.isAuthenticatedSubscription.unsubscribe();
+  }
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit(): Promise<void> {
     this.registerAuthDrawer();
     this.subscribeToAuthDrawerOpenedStart();
   }
@@ -69,12 +82,5 @@ export class ShellComponent implements AfterViewInit {
   toggleLeftNavDrawer() {
     this.leftNavDrawer.toggle();
   };
-
-  async isUserAuthenticated() {
-    const user = await this.afAuth.currentUser;
-    const isAuthenticated = !!user;
-    return isAuthenticated;
-  };
-
   
 }

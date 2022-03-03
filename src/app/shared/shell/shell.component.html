@@ -41,14 +41,21 @@
             <div *ngIf="!(isHandset$ | async)" class="flex ml-auto gap-2 items-center">
                 <a role="button" mat-button routerLink="/kanban" class="text-lg">Kanban demo</a>
                 <a role="button" mat-button routerLink="/customers" class="text-lg">SSR demo</a>
-                <button *ngIf="!isUserAuthenticated; else profileBtn" 
-                mat-raised-button color="accent" (click)="openAuthDrawer()"
-                 class="text-xl font-bold tracking-wider hover:brightness-110 py-1">Sign In</button>
 
-                 <ng-template #profileBtn>
-                     <button>Profile</button>
-                     <mat-icon>account_circle</mat-icon>
-                 </ng-template>
+                <div *ngIf="isPageReady">
+                    <button *ngIf="!isUserAuthenticated; else profileBtn" 
+                    mat-raised-button color="accent" (click)="openAuthDrawer()"
+                     class="text-xl font-bold tracking-wider hover:brightness-110 py-1">Sign In</button>
+    
+                     <ng-template #profileBtn>
+                         <button mat-stroked-button class="scale-[1.15]" routerLink="/profile">
+                             <mat-icon class="mr-1">account_circle</mat-icon>
+                             <span class="tracking-wider font-bold">
+                                 Profile
+                             </span>
+                            </button>
+                     </ng-template>
+                </div>
 
 
                 <!-- Kebab Menu Top-Right -->
