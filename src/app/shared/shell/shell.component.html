@@ -40,7 +40,7 @@
 
             <div *ngIf="!(isHandset$ | async)" class="flex ml-auto gap-2 items-center">
                 <a role="button" mat-button (click)="!isUserAuthenticated ? redirectTo('/login') : redirectTo('/kanban')" class="text-lg">Kanban</a>
-                <a role="button" mat-button routerLink="/customers" class="text-lg mr-3">SSR demo</a>
+                <a role="button" mat-button routerLink="/customers" class="text-lg mr-3">Customers</a>
 
                 <div *ngIf="isPageReady">
                     <button *ngIf="!isUserAuthenticated; else profileBtn" 

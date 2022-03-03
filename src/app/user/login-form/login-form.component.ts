@@ -2,6 +2,9 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { SnackService } from 'src/app/services/snack.service';
 
 
 @Component({
@@ -35,7 +38,13 @@ export class LoginFormComponent implements OnInit {
   isSubmitting = false;
   
 
-  constructor(public afAuth: AngularFireAuth, private fb: FormBuilder) { }
+  constructor(
+    public afAuth: AngularFireAuth, 
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private snackService: SnackService,
+  ) { }
 
   ngOnInit(): void {
     this.signInForm = this.fb.group({
@@ -115,19 +124,25 @@ export class LoginFormComponent implements OnInit {
     try {
       
       if (this.pageType === "signIn") {
-         const userCred = await this.afAuth.signInWithEmailAndPassword(this.getSignInEmail.value, this.getSignInPassword.value);
-
+        await this.afAuth.signInWithEmailAndPassword(this.getSignInEmail.value, this.getSignInPassword.value);
+        this.snackBar.open("Successfully signed in!", "OK", {
+          duration: 5000,
+        });
+        this.snackService.closeAuthDrawer();
+        
       } else if (this.pageType === "createAcc") {
-        const userCred = await this.afAuth.createUserWithEmailAndPassword(this.getCreateAccEmail.value, this.getCreateAccPassword.value);
+        await this.afAuth.createUserWithEmailAndPassword(this.getCreateAccEmail.value, this.getCreateAccPassword.value);
+        this.snackBar.open("Account succesfully created!", "OK", {
+          duration: 5000,
+        });
+        this.snackService.closeAuthDrawer();
 
       } else {
         await this.afAuth.sendPasswordResetEmail(this.getResetPassEmail.value);
-
-
       }
 
     } catch (error) {
-      this.errorText = "Invalid login attempt"
+      this.errorText = "Invalid login attempt";
       console.error("There was an unexpected error:", error);
     }
 
