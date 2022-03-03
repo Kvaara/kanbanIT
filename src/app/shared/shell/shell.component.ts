@@ -3,6 +3,7 @@ import { AfterViewInit, Component, ComponentRef, OnDestroy, OnInit, ViewChild, V
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder } from '@angular/forms';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
 import { SnackService } from 'src/app/services/snack.service';
@@ -34,6 +35,7 @@ export class ShellComponent implements AfterViewInit, OnDestroy {
     private breakPointObserver: BreakpointObserver,
     private snackService: SnackService,
     private afAuth: AngularFireAuth,
+    private router: Router,
   ) {
     this.isAuthenticatedSubscription = this.afAuth.user.pipe(
       map((user) => !!user),
@@ -82,5 +84,10 @@ export class ShellComponent implements AfterViewInit, OnDestroy {
   toggleLeftNavDrawer() {
     this.leftNavDrawer.toggle();
   };
+
+  redirectTo(uri:string){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.router.navigate([uri]));
+ }
   
 }

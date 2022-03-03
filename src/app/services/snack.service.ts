@@ -26,5 +26,9 @@ export class SnackService {
     await this.authDrawer?.open();
   }
 
+  async closeAuthDrawer() {
+    await this.authDrawer?.close();
+  }
+
 
 }

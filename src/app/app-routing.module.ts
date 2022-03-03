@@ -8,6 +8,7 @@ import { LoginGuardGuard } from './user/login-guard.guard';
 
 
 const redirectUnauthorizedToHome = () => redirectUnauthorizedTo("/");
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo("/login");
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -23,10 +24,9 @@ const routes: Routes = [
     component: BoardListComponent, 
     loadChildren: () => import("./kanban/kanban.module").then((m) => m.KanbanModule),
     canActivate: [AngularFireAuthGuard],
-    canLoad: [AngularFireAuthGuard],
     data: {
     isAuthOnly: true,
-    authGuardPipe: redirectUnauthorizedToHome,
+    authGuardPipe: redirectUnauthorizedToLogin,
     }
   },
   { 

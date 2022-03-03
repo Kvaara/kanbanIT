@@ -33,14 +33,14 @@
             </button>
 
             <a routerLink="/" [ngClass]="{'ml-5': (isHandset$ | async)}" role="button"
-                class="text-3xl flex justify-center items-center font-bold gap-3 ml-5 logo">
+                class="text-3xl flex justify-center items-center font-bold gap-3 ml-3 logo">
                 <mat-icon class="scale-[2.2] logo-icon"> view_kanban </mat-icon>
                 KanbanIT
             </a>    
 
             <div *ngIf="!(isHandset$ | async)" class="flex ml-auto gap-2 items-center">
-                <a role="button" mat-button routerLink="/kanban" class="text-lg">Kanban demo</a>
-                <a role="button" mat-button routerLink="/customers" class="text-lg">SSR demo</a>
+                <a role="button" mat-button (click)="!isUserAuthenticated ? redirectTo('/login') : redirectTo('/kanban')" class="text-lg">Kanban</a>
+                <a role="button" mat-button routerLink="/customers" class="text-lg mr-3">SSR demo</a>
 
                 <div *ngIf="isPageReady">
                     <button *ngIf="!isUserAuthenticated; else profileBtn" 
