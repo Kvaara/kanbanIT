@@ -28,10 +28,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     MatDialogModule,
-    // provideFirebaseApp(() => initializeApp(environment.firebase)),
-    // provideAuth(() => getAuth()),
-    // provideFirestore(() => getFirestore()),
-    // provideStorage(() => getStorage()),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -141,3 +141,31 @@ body {
   border-color: transparent !important;
   margin-top: 24px !important;
 }
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #ff8000 #1c1c1c;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #1c1c1c;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #ff8000;
+  border-radius: 10px;
+  border: 6px none transparent;
+  opacity: 0.7;
+}
+
+*::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
