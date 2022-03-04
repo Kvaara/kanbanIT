@@ -22,33 +22,50 @@ export class SeoService {
     image = "",
     content = "",
   }) {
+    this.title.setTitle(title);
+
     let firstNameTag = "";
     let secondNameTag = "";
-
     if (content === "profile") {
       const firstAndSecondName = title.split(" ");
       firstNameTag = firstAndSecondName[0];
       secondNameTag = firstAndSecondName[1] ?? "";
+      this.meta.addTags([
+        // Open Graph tags
+        { name: "og:url", content: `${location.origin}${this.router.url}`},
+  
+        { name: "og:type", content: content},
+        { name: "profile:first_name", content: firstNameTag},
+        { name: "profile:last_name", content: secondNameTag},
+  
+        
+        { name: "og:title", content: title},
+        { name: "og:description", content: description},
+        { name: "og:image", content: image},
+        
+        // Twitter tags
+        { name: "twitter:card", content: "summary"},
+        { name: "twitter:site", content: "@kvaara"},
+  
+      ]);
+    } else {
+      this.meta.addTags([
+        // Open Graph tags
+        { name: "og:url", content: `${location.origin}${this.router.url}`},
+  
+        { name: "og:type", content: content},
+      
+        { name: "og:title", content: title},
+        { name: "og:description", content: description},
+        { name: "og:image", content: image},
+        
+        // Twitter tags
+        { name: "twitter:card", content: "summary"},
+        { name: "twitter:site", content: "@kvaara"},
+  
+      ]);
+
     }
 
-    this.title.setTitle(title);
-    this.meta.addTags([
-      // Open Graph tags
-      { name: "og:url", content: `${location.origin}${this.router.url}`},
-
-      { name: "og:type", content: content},
-      { name: "profile:first_name", content: firstNameTag},
-      { name: "profile:last_name", content: secondNameTag},
-
-      
-      { name: "og:title", content: title},
-      { name: "og:description", content: description},
-      { name: "og:image", content: image},
-      
-      // Twitter tags
-      { name: "twitter:card", content: "summary"},
-      { name: "twitter:site", content: "@kvaara"},
-
-    ]);
   };  
 }
