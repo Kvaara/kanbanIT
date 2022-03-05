@@ -11,6 +11,7 @@
     "serve:ssr": "node dist/kanbanit/server/main.js",
     "build:ssr": "ng build && ng run kanbanit:server",
     "prerender": "ng run kanbanit:prerender",
+    "serve:prerender": "http-server dist/kanbanit/browser",
     "prebuild:ssr": "ngcc"
   },
   "private": true,

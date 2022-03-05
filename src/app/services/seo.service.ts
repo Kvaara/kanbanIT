@@ -33,7 +33,7 @@ export class SeoService {
     this.title.setTitle(title);
     this.meta.addTags([
       // Open Graph tags
-      { name: "og:url", content: `www.google.com/${this.router.url}`},
+      { name: "og:url", content: `www.google.com${this.router.url}`},
 
       { name: "og:type", content: content},
       { name: "profile:first_name", content: firstNameTag},
