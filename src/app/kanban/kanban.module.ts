@@ -11,6 +11,7 @@ import { BoardDialogComponent } from './dialogs/board-dialog.component';
 import { TaskDialogComponent } from './dialogs/task-dialog.component';
 import { VerticalScrollWithMouseDownDirective } from './vertical-scroll-with-mouse-down.directive';
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog.component';
+import { KanbanRoutingModule } from './kanban-routing.module';
 
 
 
@@ -31,6 +32,7 @@ import { ConfirmDialogComponent } from './dialogs/confirm-dialog.component';
     MatButtonToggleModule,
     MatButtonToggleModule,
     MatDialogModule,
+    KanbanRoutingModule,
   ],
 })
 export class KanbanModule { }

@@ -23,7 +23,6 @@ const routes: Routes = [
     }
   },
   { path: 'kanban',
-    component: BoardListComponent, 
     loadChildren: () => import("./kanban/kanban.module").then((m) => m.KanbanModule),
     canActivate: [AngularFireAuthGuard],
     data: {
@@ -41,14 +40,9 @@ const routes: Routes = [
     }
   },
   {
-    path: "customers",
-    component: ListPageComponent,
-    loadChildren: () => import("./customers/customers.module").then((m) => m.CustomersModule),
-  },
-  {
-    path: "customers/:id",
-    component: DetailPageComponent,
-    loadChildren: () => import("./customers/customers.module").then((m) => m.CustomersModule),
+    path: 'customers',
+    loadChildren: () =>
+      import('./customers/customers.module').then(m => m.CustomersModule),
   }
 ];
 
