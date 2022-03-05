@@ -1,1 +1,15 @@
-{}
+{
+  "hosting": {
+    "public": "dist/kanbanit/browser",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "run": {
+          "serviceId": "kanbanit",
+          "region": "europe-north1"
+        }
+      }
+    ]
+  }
+}
