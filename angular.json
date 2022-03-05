@@ -149,7 +149,15 @@
         "prerender": {
           "builder": "@nguniversal/builders:prerender",
           "options": {
-            "routes": ["/"]
+            "routes": [
+              "/",
+              "/customers",
+              "/customers/3Jz5hjUu9JeUfaGUQVZk",
+              "/customers/4M3vjFagbEZNmLOfbIR8",
+              "/customers/FfX4vs3mlPGymIEoMRaP",
+              "/kanban",
+              "/login"
+            ]
           },
           "configurations": {
             "production": {
