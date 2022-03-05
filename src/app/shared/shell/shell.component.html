@@ -3,12 +3,37 @@
     <!-- Responsive Left-Side Drawer For Smaller Screens -->
     <mat-sidenav #leftNavDrawer fixedInViewport opened="false" mode="over"
      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'">
-        <mat-toolbar>Menu</mat-toolbar>
-            <mat-nav-list>
-                <a role="button" mat-list-item routerLink="/" (click)="closeLeftNavDrawer()">Home</a>
-                <a role="button" mat-list-item (click)="closeLeftNavDrawer(); openAuthDrawer()">Sign in</a>
-                <a role="button" mat-list-item routerLink="/kanban" (click)="closeLeftNavDrawer()">Kanban Demo</a >
-                <a role="button" mat-list-item routerLink="/customers" (click)="closeLeftNavDrawer()">SSR demo</a>
+        <mat-toolbar>
+            <a routerLink="/" [ngClass]="{'ml-5': (isHandset$ | async)}" role="button"
+                class="text-3xl flex justify-center items-center font-bold gap-3 ml-3 logo">
+                <mat-icon class="scale-[2.2] logo-icon"> view_kanban </mat-icon>
+                KanbanIT
+            </a> 
+        </mat-toolbar>
+            <mat-nav-list >
+                <a class="shadow-md" role="button" mat-list-item routerLink="/" (click)="closeLeftNavDrawer()">
+                    <mat-icon class="mr-1.5 text-slate-100">home</mat-icon>
+                    <span class="mr-3 pr-1 font-bold text-slate-100 tracking-wider"> Home </span>
+                </a>
+                <a class="shadow-md" role="button" mat-list-item routerLink="/kanban" (click)="closeLeftNavDrawer()">
+                    <mat-icon class="mr-1.5 text-slate-100">view_kanban</mat-icon>
+                    <span class="mr-3 pr-1 font-bold text-slate-100 tracking-wider"> Kanban </span>
+                </a >
+                <a class="shadow-md" role="button" mat-list-item routerLink="/customers" (click)="closeLeftNavDrawer()">
+                    <mat-icon class="mr-1.5 text-slate-100">badge</mat-icon>
+                    <span class="mr-3 pr-1 font-bold text-slate-100 tracking-wider"> Customers </span>
+                </a>
+                <a class="shadow-md" *ngIf="!isUserAuthenticated; else drawerProfileBtn"  
+                    role="button" mat-list-item (click)="closeLeftNavDrawer(); openAuthDrawer()">
+                    <mat-icon class="mr-1.5 text-slate-100">login</mat-icon>
+                    <span class="mr-3 pr-1 font-bold text-slate-100 tracking-wider"> Sign in </span>
+                </a>
+                <ng-template #drawerProfileBtn>
+                    <a class="shadow-md" role="button" mat-list-item routerLink="/profile" (click)="closeLeftNavDrawer()">
+                        <mat-icon class="mr-1.5 text-slate-100">account_circle</mat-icon>
+                        <span class="mr-3 pr-1 font-bold text-slate-100 tracking-wider">Profile</span>
+                    </a>
+                </ng-template>
             </mat-nav-list>
     </mat-sidenav>
 
@@ -38,9 +63,17 @@
                 KanbanIT
             </a>    
 
-            <div *ngIf="!(isHandset$ | async)" class="flex ml-auto gap-2 items-center">
-                <a role="button" mat-button (click)="!isUserAuthenticated ? redirectTo('/login') : redirectTo('/kanban')" class="text-lg">Kanban</a>
-                <a role="button" mat-button routerLink="/customers" class="text-lg mr-3">Customers</a>
+            <div *ngIf="!(isHandset$ | async)" class="flex ml-auto items-center">
+                <a role="button" mat-button (click)="!isUserAuthenticated ? redirectTo('/login') : redirectTo('/kanban')" 
+                 class="text-lg mr-2 pl-1.5 pr-1.5">
+                    <mat-icon class="text-slate-100">view_kanban</mat-icon>
+                    <span class="tracking-wider">Kanban</span>
+                </a>
+                <a role="button" mat-button routerLink="/customers" class="text-lg mr-4 pl-1.5 pr-1.5">
+                    <!-- Customers -->
+                    <mat-icon class="text-slate-100 mr-1">badge</mat-icon>
+                    <span class="tracking-wider">Customers</span>
+                </a>
 
                 <div *ngIf="isPageReady">
                     <button *ngIf="!isUserAuthenticated; else profileBtn" 
@@ -48,7 +81,7 @@
                      class="text-xl font-bold tracking-wider hover:brightness-110 py-1">Sign In</button>
     
                      <ng-template #profileBtn>
-                         <button mat-stroked-button class="scale-[1.15]" routerLink="/profile">
+                         <button mat-stroked-button class="scale-[1.15] pl-1.5 pr-1.5" routerLink="/profile">
                              <mat-icon class="mr-1">account_circle</mat-icon>
                              <span class="tracking-wider font-bold">
                                  Profile
@@ -61,7 +94,7 @@
                 <!-- Kebab Menu Top-Right -->
                 <div>
                     <button mat-icon-button [mat-menu-trigger-for]="kebabMenu"
-                     aria-label="Kebab menu with vertical dots">
+                     aria-label="Kebab menu with vertical dots" class="ml-2">
                         <mat-icon>more_vert</mat-icon>
                     </button>
     
