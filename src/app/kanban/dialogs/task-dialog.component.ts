@@ -12,14 +12,14 @@ import { IDataTask } from './dialog-data-task.model';
   </button>
 
     <div class="flex items-center justify-start -translate-y-2">
-      <h1 mat-dialog-title class="text-4xl text-left tracking-wide text-gray-100">
+      <h1 mat-dialog-title class="text-4xl text-left tracking-wide text-slate-100">
         {{ data.isNew ? "What's the task?" : "What to update?" }}
       </h1>
     </div>
 
     <div mat-dialog-content class="flex flex-col justify-center items-stretch">
 
-          <label for="description" class="text-xl mb-1 tracking-wide font-bold text-gray-100">Description:</label>
+          <label for="description" class="text-xl mb-1 tracking-wide font-bold text-slate-100">Description:</label>
           <div class="flex p-2 rounded" [ngClass]="addBG(data.task.label)">
             <textarea [(ngModel)]="data.task.description"
              minlength="2"
@@ -41,7 +41,7 @@ import { IDataTask } from './dialog-data-task.model';
 
       <div class="flex flex-col mt-3">
 
-        <span class="text-xl mb-1 tracking-wide font-bold text-gray-100">Color:</span>
+        <span class="text-xl mb-1 tracking-wide font-bold text-slate-100">Color:</span>
         <mat-button-toggle-group
         #group="matButtonToggleGroup"
         [(ngModel)]="data.task.label"
@@ -69,18 +69,18 @@ import { IDataTask } from './dialog-data-task.model';
   <div class="h-3"></div>
   `,
   styles: [
-    ".blue {color: #71deff; }",
-    ".green { color: #36e9b6; }",
-    ".yellow {  color: #ffd044; }",
-    ".purple {  color: #b05cff; }",
-    ".red { color: #e74a4a; }",
-    ".gray { color: #5b5b5b; filter: brightness(2); }",
-    ".blueBG { background-color: #71deff; color: black; }",
-    ".greenBG { background-color: #36e9b6; color: black; }",
-    ".yellowBG {  background-color: #ffd044; color: black; }",
-    ".purpleBG {  background-color: #b05cff; }",
-    ".redBG { background-color: #e74a4a; }",
-    ".grayBG { background-color: #5b5b5b;  }",
+    ".blue {color: #71deff !important; }",
+    ".green { color: #36e9b6 !important; }",
+    ".yellow {  color: #ffd044 !important; }",
+    ".purple {  color: #b05cff !important; }",
+    ".red { color: #e74a4a !important; }",
+    ".gray { color: #5b5b5b !important; filter: brightness(2); }",
+    ".blueBG { background-color: #71deff !important; color: black; }",
+    ".greenBG { background-color: #36e9b6 !important; color: black; }",
+    ".yellowBG {  background-color: #ffd044 !important; color: black; }",
+    ".purpleBG {  background-color: #b05cff !important; }",
+    ".redBG { background-color: #e74a4a !important; }",
+    ".grayBG { background-color: #5b5b5b !important;  }",
     ".mat-button-toggle-checked {background-color: #10192B !important; filter: brightness(0.9); }",
     "::ng-deep .mat-dialog-container { background-color: #000C29 !important; position: relative !important; }"
   ]

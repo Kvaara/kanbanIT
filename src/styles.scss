@@ -125,12 +125,12 @@ body {
 }
 
 .logo {
-  font-family: "Delius", cursive;
-  letter-spacing: 1px;
+  font-family: "Delius", cursive !important;
+  letter-spacing: 1px !important;
 }
 
 .logo-icon {
-  color: mat.get-color-from-palette($kanbanit-primary, 900);
+  color: mat.get-color-from-palette($kanbanit-primary, 900) !important;
 }
 
 #deleteZone .cdk-drag-placeholder {

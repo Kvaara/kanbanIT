@@ -11,14 +11,14 @@ import { IDataBoard } from './dialog-data-board.model';
   </button>
 
       <div class="flex items-center justify-start -translate-y-2">
-        <h1 mat-dialog-title class="text-4xl text-left tracking-wide text-gray-100">
+        <h1 mat-dialog-title class="text-4xl text-left tracking-wide text-slate-100">
           {{ data.isNew ? "What name?" : "Edit Name" }}
         </h1>
       </div>
 
       <div mat-dialog-content class="flex flex-col justify-center items-stretch">
 
-        <label for="description" class="text-xl mb-1 tracking-wide font-bold text-gray-100">Title:</label>
+        <label for="description" class="text-xl mb-1 tracking-wide font-bold text-slate-100">Title:</label>
         <div class="flex p-2 rounded bg-slate-800">
           <textarea [(ngModel)]="data.board.title"
            minlength="2"

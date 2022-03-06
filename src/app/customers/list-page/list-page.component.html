@@ -1,17 +1,26 @@
 <div class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-lg w-2/5 h-1/2
  shadow-lg flex flex-col min-w-min overflow-hidden">
 
-    <div class="bg-[#212121] drop-shadow-md z-20 pl-3">
-        <h1 class="text-left m-0 py-3 tracking-wide text-3xl text-gray-100">Customers:</h1>
+    <div class="bg-[#212121] drop-shadow-md z-20 pl-3 flex justify-between items-center">
+        <h1 class="text-left m-0 py-3 tracking-wide text-3xl text-slate-100">Customers:</h1>
+        <span class="mr-4 text-slate-600">(*not really but let's just pretend)</span>
     </div>
 
-    <div class="flex flex-col items-center py-3 overflow-auto h-full max-h-full gap-3
+    <div *ngIf="!isPageReady; else mainContent" class="flex flex-col items-center py-3 overflow-auto h-full max-h-full gap-3
     bg-[#212121]">
-        <button mat-stroked-button *ngFor="let cust of customers" [routerLink]="cust.customerID"
-         class="h-14 min-h-[56px] w-1/2 text-xl text-[#FF8000]" color="primary">
-            {{ cust.name }}
-        </button>
+        <mat-spinner></mat-spinner>
     </div>
+
+    <ng-template #mainContent>
+        <div class="flex flex-col items-center py-3 overflow-auto h-full max-h-full gap-3.5
+        bg-[#212121]">
+            <button mat-stroked-button *ngFor="let cust of customers" [routerLink]="cust.customerID" [@fadeIn]
+             class="h-14 min-h-[56px] w-1/2 rounded-full text-xl text-[#FF8000] border-[#BD5F00] font-bold tracking-wide" color="primary">
+                {{ cust.name }}
+            </button>
+        </div>
+    </ng-template>
+
 
 </div>
 

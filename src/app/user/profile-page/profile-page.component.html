@@ -1,17 +1,17 @@
 <div class="flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
 
-    <mat-card class="w-72 md:w-96 transition-all">
+    <mat-card class="w-72 md:w-96 transition-all bg-[#212121]">
             <mat-card-title class="text-4xl">Profile</mat-card-title>
             <hr>
             <br>
-            <span class="text-base opacity-80">{{ userDisplayName ? "Name:" : "" }}</span>
-            <mat-card-subtitle class="text-xl text-white">{{ userDisplayName }}</mat-card-subtitle>
-            <span class="text-base opacity-80">Email:</span>
-            <mat-card-subtitle class="text-xl text-white pb-4">{{ userEmail }}</mat-card-subtitle>
+            <span class="text-base opacity-80 font-bold tracking-wide">{{ userDisplayName ? "Name:" : "" }}</span>
+            <mat-card-subtitle class="text-lg text-[#FF8000]">{{ userDisplayName }}</mat-card-subtitle>
+            <span class="text-base opacity-80 font-bold tracking-wide">Email:</span>
+            <mat-card-subtitle class="text-lg pb-4 text-[#FF8000]">{{ userEmail }}</mat-card-subtitle>
 
         <mat-card-actions class="flex justify-end items-center mr-0 -mb-0.5">
             <button mat-stroked-button (click)="signUserOut()"
-             class="font-bold tracking-wider scale-110 hover:brightness-125 transition-all">
+             class="font-bold tracking-wider scale-110 hover:brightness-125 transition-all text-slate-200">
                 <mat-icon>logout</mat-icon>
                 <span>
                     SIGN OUT

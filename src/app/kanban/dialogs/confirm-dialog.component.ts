@@ -9,16 +9,16 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
     <mat-icon>clear</mat-icon>
   </button>
 
-    <h1 mat-dialog-title class="text-4xl text-gray-100 tracking-wide text-left">Are you sure?</h1>
+    <h1 mat-dialog-title class="text-4xl text-slate-100 tracking-wide text-left">Are you sure?</h1>
 
     <div mat-dialog-content class="flex gap-4 justify-between items-center mt-8">
       <button mat-button class="mt-0.5" (click)="onNoClick()">
-        <span class="tracking-wide text-base font-bold text-gray-100 block py-1.5">CANCEL</span>
+        <span class="tracking-wide text-base font-bold text-slate-100 block py-1.5">CANCEL</span>
       </button>
         
       <button mat-raised-button color="accent" [mat-dialog-close]="true"
        class="tracking-widest hover:brightness-150 transition-all">
-        <span class="text-lg font-bold block py-1.5 text-gray-100">DELETE</span>
+        <span class="text-lg font-bold block py-1.5 text-slate-100">DELETE</span>
       </button>
     </div>
   `,
