@@ -7,6 +7,7 @@ import { ProfilePageComponent } from './user/profile-page/profile-page.component
 import { LoginGuardGuard } from './user/login-guard.guard';
 import { ListPageComponent } from './customers/list-page/list-page.component';
 import { DetailPageComponent } from './customers/detail-page/detail-page.component';
+import { ToolsUsedComponent } from './shared/tools-used/tools-used.component';
 
 
 const redirectUnauthorizedToHome = () => redirectUnauthorizedTo("/");
@@ -43,6 +44,10 @@ const routes: Routes = [
     path: 'customers',
     loadChildren: () =>
       import('./customers/customers.module').then(m => m.CustomersModule),
+  },
+  {
+    path: 'tools-used',
+    component: ToolsUsedComponent,
   }
 ];
 

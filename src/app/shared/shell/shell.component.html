@@ -1,4 +1,4 @@
-<mat-sidenav-container class="h-screen">
+<mat-sidenav-container class="h-full">
 
     <!-- Responsive Left-Side Drawer For Smaller Screens -->
     <mat-sidenav #leftNavDrawer fixedInViewport opened="false" mode="over"
@@ -44,10 +44,10 @@
     </mat-sidenav> 
 
     <!-- Content outside of the drawer (top navigation and body) -->
-    <mat-sidenav-content>
+    <mat-sidenav-content class="h-full">
 
         <!-- Top Navigation Bar Content -->
-        <mat-toolbar>
+        <mat-toolbar class="h-16 shadow-md drop-shadow-md">
             <button
                 *ngIf="isHandset$ | async"
                 mat-icon-button
@@ -70,7 +70,6 @@
                     <span class="tracking-wider">Kanban</span>
                 </a>
                 <a role="button" mat-button routerLink="/customers" class="text-lg mr-4 pl-1.5 pr-1.5">
-                    <!-- Customers -->
                     <mat-icon class="text-slate-100 mr-1">badge</mat-icon>
                     <span class="tracking-wider">Customers</span>
                 </a>
@@ -98,14 +97,15 @@
                         <mat-icon>more_vert</mat-icon>
                     </button>
     
-                    <mat-menu #kebabMenu="matMenu">
-                        <button mat-menu-item class="font-bold text-base">
-                            <mat-icon class="scale-125 mb-0.5">code</mat-icon>
-                            Source code
-                        </button>
-                        <button mat-menu-item class="font-bold text-base">
-                            <mat-icon class="scale-110 mb-0.5">construction</mat-icon>
-                            Tools used
+                    <mat-menu #kebabMenu="matMenu" class="bg-[#212121] border-t border-slate-700">
+                        <a mat-menu-item class="font-bold text-lg flex justify-center items-center" 
+                         href="https://github.com/Kvaara/kanbanIT" target="_blank">
+                            <mat-icon class="scale-125 text-[#FF8000]">code</mat-icon>
+                            <span class="mb-0.5 text-[#FF8000]">Source code</span>
+                        </a>
+                        <button mat-menu-item class="font-bold text-lg" routerLink="/tools-used">
+                            <mat-icon class="scale-110 mb-0.5 text-[#FF8000]">construction</mat-icon>
+                            <span class="text-[#FF8000]">Tools used</span> 
                         </button>
                     </mat-menu>
                 </div>
