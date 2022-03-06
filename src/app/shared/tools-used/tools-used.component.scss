@@ -1,0 +1,48 @@
+.licenses blockquote {
+  white-space: pre-wrap;
+  background-color: #212121;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: inline-block;
+  width: 50%;
+  color: #b6b6b6;
+  margin-bottom: 32px;
+  border-radius: 8px;
+  font-size: 17px;
+  font-family: "Times New Roman", Times, serif;
+  padding-top: 14px;
+  line-height: 1.3rem /* 24px */ !important;
+  padding-bottom: 14px;
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color),
+    0 2px 4px -2px var(--tw-shadow-color) !important;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .licenses blockquote {
+    width: 100%;
+    margin: 0px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  body {
+    margin-left: 10vw;
+  }
+}
+
+.licenses h3,
+#package-name {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-decoration: underline;
+  color: rgb(228, 228, 228);
+}
+
+div.licenses {
+  padding: 14px 24px;
+  max-height: calc(100% - 64px);
+}
