@@ -11,12 +11,6 @@ import { CustomerService } from '../customer.service';
 export class ListPageComponent implements OnInit {
   customers: Customer[] = [];
 
-  customerDummy: Customer = {
-    bio: "asdasdasda",
-    image: "www.google.com",
-    name: "hehehe",
-  };
-
   constructor(
     private customerService: CustomerService,
     private seo: SeoService  

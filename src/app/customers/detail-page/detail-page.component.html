@@ -1,1 +1,38 @@
-<p>detail-page works!</p>
+<div class="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-lg w-2/3 max-w-4xl h-2/3 
+ shadow-lg flex flex-col min-w-min overflow-hidden">
+
+     <div class="bg-[#212121] drop-shadow-md z-20 pl-3">
+         <h1 class="text-left m-0 py-3 tracking-wider text-3xl text-slate-200 font-bold">{{ customer?.name }}</h1>
+     </div>
+    
+     <div class="flex flex-col items-center py-3 overflow-auto h-full gap-3
+     bg-[#212121]">
+         <div class="flex gap-4 px-4 h-full">
+             <div class="min-w-max pt-1.5">
+                 <img [hidden]="!isPageReady" [src]="customer?.image" alt="Picture of a customer" 
+                  class="object-cover rounded-lg brightness-90 pb-1 md:h-80 md:w-56 w-36 h-60"
+                   (load)="readyThePage()">
+                   <mat-spinner *ngIf="!isPageReady"></mat-spinner>
+                  <a [hidden]="!isPageReady" *ngIf="customer?.name !== 'Kvaara'; else githubLink" [href]="customer?.cite" target="_blank">
+                     <figcaption class="mt-2 text-slate-200">
+                         &mdash; Source: <cite class="underline font-bold tracking-wider">Wikipedia</cite>  
+                     </figcaption>
+                 </a>
+                 <ng-template #githubLink>
+                     <a [href]="customer?.cite" target="_blank">
+                        <figcaption class="mt-2 text-slate-200">
+                            &mdash; Source: <cite class="underline font-bold tracking-wider">Me :)</cite>  
+                        </figcaption>
+                    </a>
+                 </ng-template>
+             </div>
+             <blockquote class="text-lg text-slate-200 overflow-auto h-full"> 
+                 {{ customer?.bio }}
+             </blockquote>
+             
+         </div>
+     </div>
+ 
+</div>
+
+
