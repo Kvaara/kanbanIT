@@ -3,14 +3,14 @@
 
     <div class="h-full pb-3 px-1">
 
-        <div class="flex h-5/6">
+        <div class="flex h-[88%]">
         
             <div cdkDropList (cdkDropListDropped)="onDropMove($event)" cdkDropListOrientation="horizontal"
              [cdkDropListConnectedTo]="[deleteZone]" appVerticalScrollWithMouseDown id="boardsContainer"
              class="flex gap-4 my-3 mx-3 overflow-auto bg-[#212121] rounded py-2 px-2 border-2 border-slate-900 w-full"
              [cdkDropListData]="{isBoard: true}">
                 <app-board cdkDrag *ngFor="let board of boards" [board]="board" [deleteZone]="deleteZone" [@fadeIn]
-                 class="h-max min-w-[320px] border-[5px] border-transparent">
+                 class="h-max min-w-[350px] max-w-[350px] border-[5px] border-transparent text-ellipsis">
                     <mat-icon cdkDragHandle 
                      class="cursor-move scale-150">drag_indicator</mat-icon>
                 </app-board>
@@ -21,7 +21,7 @@
         </div>
     
 
-        <div class="h-1/6 flex items-stretch gap-4 px-3">
+        <div class="h-[12%] flex items-stretch gap-4 px-3">
 
             <div cdkDropList (cdkDropListDropped)="onDropDelete($event)" #deleteZone="cdkDropList" id="deleteZone"
              class="rounded border-4 gap-2 border-red-300 border-dashed flex brightness-50

@@ -2,6 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Title } from '@angular/platform-browser';
 import { Board, Task } from '../board.model';
 import { BoardService } from '../board.service';
 import { BoardDialogComponent } from '../dialogs/board-dialog.component';
@@ -39,9 +40,11 @@ export class BoardComponent implements OnInit {
   constructor(
     private boardService: BoardService,
     private dialog: MatDialog,
+    private title: Title,
   ) { }
 
   ngOnInit(): void {
+    this.title.setTitle("Kanban Management");
   }
 
   async onDrop($event: CdkDragDrop<any>) {

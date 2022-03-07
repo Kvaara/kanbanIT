@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,9 +17,11 @@ export class ProfilePageComponent implements OnInit {
     private afAuth: AngularFireAuth,
     private router: Router,
     private snackBar: MatSnackBar,
+    private title: Title,
   ) { }
 
   async ngOnInit(): Promise<void> {
+    this.title.setTitle("Profile");
     const user = await this.afAuth.currentUser;
     if (user) {
       this.userDisplayName = user.displayName ?? "";
