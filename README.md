@@ -1,10 +1,20 @@
-# Kanbanit
+# Kanbanit (A Trello inspired web-application)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.4.
+Hello and welcome to one of my second biggest Angular projects that I have developed (the biggest being the [Shorts web-app](https://github.com/Kvaara/angular_shorts_app)).
 
-## Development server
+You can find the project live (and test it) here: [KanbanIT hosted by Vercel v1.0.0](https://kanbanit-dev.web.app/).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Features
+
+This is pretty bare bones version of Trello (for a good reason lol) but it has some features similar to it including the kanban feature itself.
+
+Users can make kanban boards and tasks related to them. They can also move them across the kanban board and/or delete them by moving them to the garbage are (these have been implemented by using the Angular CDK's drag-and-drop API). 
+
+Users can also edit the kanban boards' titles and the tasks related to them if they want to.
+
+User authentication has been done by using Google Firebase (authentication is required for users to access the kanban features).
+
+SSR has been implemented by prerendering and in turn there is search engine optimization added (SEO). The customers page was solely for the demonstration of what SSR can do to SEO.
 
 ## Code scaffolding
 
