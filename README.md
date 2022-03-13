@@ -16,22 +16,10 @@ User authentication has been done by using Google Firebase (authentication is re
 
 SSR has been implemented by prerendering and in turn there is search engine optimization added (SEO). The customers page was solely for the demonstration of what SSR can do to SEO.
 
-## Code scaffolding
+## Tools/libraries
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Basically the main tools that I have used is the Angular framework itself, the CDK it provides and Angular material. Oh and also the Angular Fire package, which makes communicating with Firebase much easier. The main front end library that I have used for styling is TailWindCSS. TailWindCSS makes is so extremely enjoyable writing CSS rather than the vanilla way of writing the .css files.
 
-## Build
+I have made a separate page in the KanbanIT application that you can use to check out every tooling. The are even some licenses included because I generated all of them by using a [npm license generator](https://www.npmjs.com/package/npm-license-generator). The page isn't that UI/UX pretty because I didn't want to spend much time on it.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+List of all the tools/libraries I have used with the corresponding licenses can be found [here](https://kanbanit-dev.web.app/tools-used). 
